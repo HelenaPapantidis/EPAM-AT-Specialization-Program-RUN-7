@@ -6,6 +6,7 @@ Feature: User account features
   Background:
     Given the user is registered and signed in
 
+  @regression 
   Scenario: Update profile information
     When the user navigates to the profile page
     And the user updates the first name field with new value
@@ -13,6 +14,7 @@ Feature: User account features
     Then a success message should be displayed
     And the updated information should be visible on the profile page
 
+  @regression 
   Scenario: Add product to favorites
     When the user opens a product from the homepage
     And the user clicks the favorite icon on the product page

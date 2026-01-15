@@ -6,6 +6,7 @@ Feature: Shopping cart
   Background:
     Given the user is on the homepage
 
+  @smoke @positive
   Scenario: Add product to basket
     When the user clicks on a product from the list
     And the user clicks the "Add to cart" button

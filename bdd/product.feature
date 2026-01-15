@@ -6,6 +6,7 @@ Feature: Product details
   Background:
     Given the user is on the homepage
 
+   @regression @positive
   Scenario: View product details page
     When the user clicks on any product from the list
     Then the product details page should be displayed
