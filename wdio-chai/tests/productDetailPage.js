@@ -20,8 +20,7 @@ describe("Product Details Feature", () => {
       { timeout: 10000, timeoutMsg: "Product detail page did not load" }
     );
 
-    const url = await browser.getUrl();
-    url.should.include("/product/");
+    await expect(browser).toHaveUrl(expect.stringContaining("/product/"));
 
     const productName = await $("h1");
     await productName.waitForDisplayed({ timeout: 15000 });
