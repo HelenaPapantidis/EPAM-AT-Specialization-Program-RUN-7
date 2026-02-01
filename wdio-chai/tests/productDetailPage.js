@@ -4,28 +4,32 @@ chai.should();
 describe("Product Details Feature", () => {
 
   it("should display product details page with correct info", async () => {
-    // Navigate directly to a known product (Combination Pliers)
-    await browser.url("/product/01KG2ZMEW4EP9YQ4HAKCN0RG4S");
+    await browser.url("/");
 
-    // Wait for page to fully load
-    await browser.pause(5000);
+    await browser.waitUntil(
+      async () => (await $$("a.card")).length > 0,
+      { timeout: 10000, timeoutMsg: "Products did not load" }
+    );
 
-    // URL should contain /product/
+    const firstProduct = await $("a.card");
+    const cardProductName = await firstProduct.$(".card-title").getText();
+    await firstProduct.click();
+
+    await browser.waitUntil(
+      async () => (await browser.getUrl()).includes("/product/"),
+      { timeout: 10000, timeoutMsg: "Product detail page did not load" }
+    );
+
     const url = await browser.getUrl();
     url.should.include("/product/");
 
-    // Product name should be visible (data-test='product-name')
-    const productName = await $("[data-test='product-name']");
-    await productName.waitForExist({ timeout: 15000 });
+    const productName = await $("h1");
     await productName.waitForDisplayed({ timeout: 15000 });
-    const nameText = await productName.getText();
-    nameText.length.should.be.greaterThan(0);
+    await expect(productName).toHaveText(cardProductName);
 
-    // Add to cart button should exist (id='btn-add-to-cart')
     const addToCartBtn = await $("#btn-add-to-cart");
-    await addToCartBtn.waitForExist({ timeout: 15000 });
-    const isDisplayed = await addToCartBtn.isDisplayed();
-    isDisplayed.should.be.true;
+    await expect(addToCartBtn).toExist();
+    await expect(addToCartBtn).toBeClickable();
   });
 
 });

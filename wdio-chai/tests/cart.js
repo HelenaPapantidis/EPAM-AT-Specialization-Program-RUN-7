@@ -1,32 +1,58 @@
-import { expect } from "chai";
-
 describe("Shopping Cart", () => {
+  it("should add product to basket", async () => {
+    await browser.url("/");
 
-  it("should add any available product to cart", async () => {
-    // Navigate directly to a known product (Combination Pliers)
-    await browser.url("/product/01KG2ZMEW4EP9YQ4HAKCN0RG4S");
+    await browser.waitUntil(async () => (await $$("a.card")).length > 0, {
+      timeout: 10000,
+      timeoutMsg: "Products did not load",
+    });
 
-    // Wait for page to fully load
-    await browser.pause(5000);
+    const firstProduct = await $("a.card");
+    await firstProduct.click();
 
-    // Wait for add to cart button with data-test attribute
-    const addToCartBtn = await $("#btn-add-to-cart");
-    await addToCartBtn.waitForExist({ timeout: 15000 });
-    await addToCartBtn.waitForDisplayed({ timeout: 15000 });
-    await addToCartBtn.scrollIntoView();
-    await browser.pause(500);
+    await browser.waitUntil(
+      async () => (await browser.getUrl()).includes("/product/"),
+      { timeout: 10000, timeoutMsg: "Product detail page did not load" }
+    );
+
+    const addToCartBtn = await $("[data-test='add-to-cart']");
+    await addToCartBtn.waitForClickable({ timeout: 10000 });
     await addToCartBtn.click();
 
-    // Wait for cart to update
-    await browser.pause(3000);
+    await browser.waitUntil(
+      async () => {
+        const cartBadge = await $("[data-test='cart-quantity']");
+        return (
+          (await cartBadge.isExisting()) && (await cartBadge.getText()) !== "0"
+        );
+      },
+      { timeout: 10000, timeoutMsg: "Cart did not update" },
+    );
 
-    // Navigate to checkout
-    await browser.url("/checkout");
-    await browser.pause(3000);
+    await browser
+      .waitUntil(
+        async () => {
+          const toast = await $(".ngx-toastr, .toast");
+          return !(await toast.isDisplayed());
+        },
+        { timeout: 5000, interval: 500 },
+      )
+      .catch(() => {});
 
-    // Verify we're on checkout page
-    const url = await browser.getUrl();
-    expect(url).to.include("/checkout");
+    const cartIcon = await $("[data-test='nav-cart']");
+    await cartIcon.waitForClickable({ timeout: 5000 });
+    await cartIcon.click();
+
+    await browser.waitUntil(async () => (await $$("tbody tr")).length > 0, {
+      timeout: 10000,
+      timeoutMsg: "Cart items did not load",
+    });
+
+    const cartItems = await $$("tbody tr");
+    await expect(cartItems.length).toBeGreaterThan(0);
+
+    const quantityField = await $("input[type='number']");
+    await quantityField.waitForExist({ timeout: 5000 });
+    await expect(quantityField).toHaveValue("1");
   });
-
 });

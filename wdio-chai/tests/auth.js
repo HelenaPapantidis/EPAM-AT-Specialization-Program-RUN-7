@@ -1,4 +1,4 @@
-import { expect, assert } from "chai";
+import { assert } from "chai";
 
 describe("Auth Scenarios", () => {
 
@@ -16,7 +16,6 @@ describe("Auth Scenarios", () => {
     await $("#country").selectByVisibleText("Serbia");
     await $("#phone").setValue("1234567890");
 
-    // Use a unique email for every test run
     const randomEmail = `testuser${Date.now()}@mail.com`;
     await $("#email").setValue(randomEmail);
 
@@ -25,33 +24,35 @@ describe("Auth Scenarios", () => {
     await registerBtn.waitForDisplayed({ timeout: 5000 });
     await registerBtn.click();
 
-    // Wait for registration to complete - check we're still on auth pages
-    await browser.pause(3000);
+    await browser.waitUntil(async () => {
+      const currentUrl = await browser.getUrl();
+      return currentUrl.includes("/auth") || currentUrl.includes("/account");
+    }, {
+      timeout: 10000,
+      timeoutMsg: 'Registration did not complete in time'
+    });
+
     const url = await browser.getUrl();
-    // Registration is successful if we stayed on auth pages (no error redirect)
-    expect(url).to.include("/auth");
+    assert.match(url, /\/(auth|account)/, "URL should contain /auth or /account");
   });
 
   it("should login with valid credentials (assert)", async () => {
     await browser.url("/auth/login");
 
-    // Fill login form - use customer2 as customer might be exhausted
     await $("[data-test='email']").setValue("customer2@practicesoftwaretesting.com");
     await $("[data-test='password']").setValue("welcome01");
 
-    // Submit login
     const loginBtn = await $("[data-test='login-submit']");
     await loginBtn.waitForClickable({ timeout: 5000 });
     await loginBtn.click();
 
-    // Wait for redirect to account page
     await browser.waitUntil(
       async () => (await browser.getUrl()).includes("/account"),
       { timeout: 10000, timeoutMsg: "Did not redirect to account page after login" }
     );
 
     const url = await browser.getUrl();
-    assert.include(url, "/account");
+    assert.include(url, "/account", "URL should contain /account after login");
   });
 
 });

@@ -9,6 +9,10 @@
     "chai": "^6.2.2"
   },
   "scripts": {
-    "wdio": "wdio run ./wdio.conf.js"
+    "wdio": "wdio run ./wdio.conf.js",
+    "test:cart": "wdio run ./wdio.conf.js --spec=tests/cart.js",
+    "test:product": "wdio run ./wdio.conf.js --spec=tests/productDetailPage.js",
+    "test:profile": "wdio run ./wdio.conf.js --spec=tests/profile.js"
+
   }
 }
