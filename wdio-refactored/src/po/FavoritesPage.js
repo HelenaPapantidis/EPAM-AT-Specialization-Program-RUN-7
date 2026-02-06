@@ -1,6 +1,5 @@
 import BasePage from './BasePage.js';
 
-
 class FavoritesPage extends BasePage {
   
   get favoriteCard() {
@@ -23,7 +22,6 @@ class FavoritesPage extends BasePage {
     await super.open('/account/favorites');
   }
 
-  
   async waitForPageLoad(timeout = 10000) {
     await this.waitForUrlContains(
       "/account/favorites",
@@ -32,7 +30,6 @@ class FavoritesPage extends BasePage {
     );
   }
 
-  
   async waitForFavoriteCard(timeout = 10000) {
     await this.waitForElement(this.favoriteCard, timeout);
   }
@@ -41,7 +38,6 @@ class FavoritesPage extends BasePage {
     return await this.isElementDisplayed(this.favoriteCard);
   }
 
-  
   async deleteFavorite() {
     await this.clickElement(this.deleteButton);
   }

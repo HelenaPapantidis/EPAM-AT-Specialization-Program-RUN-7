@@ -1,4 +1,6 @@
 import dotenv from 'dotenv';
+import path from 'path';
+import fs from 'fs';
 dotenv.config();
 
 export const config = {
@@ -13,13 +15,18 @@ export const config = {
     // Specify Test Files
     // ==================
     specs: [
-         "./test/**/*.test.js"
+         "../tests/**/*.test.js"
     ],
     
     // Patterns to exclude
     exclude: [
         // 'path/to/excluded/files'
     ],
+
+    // Retry failed spec files up to 1 time
+    specFileRetries: 1,
+    specFileRetriesDelay: 0,
+    specFileRetriesDeferred: false,
     
     //
     // ============
@@ -76,16 +83,21 @@ export const config = {
     // Hooks
     // =====
     /**
-     * Gets executed before test execution begins
+     * Take screenshot on test failure and save to screenshots/ folder
      */
-    // before: function (capabilities, specs) {
-    //     console.log('Starting test execution...');
-    // },
-    
-    /**
-     * Gets executed after all tests are done
-     */
-    // after: function (result, capabilities, specs) {
-    //     console.log('Test execution completed');
-    // },
+    afterTest: async function (test, context, { error, passed }) {
+        if (!passed) {
+            const screenshotDir = path.resolve('screenshots');
+            if (!fs.existsSync(screenshotDir)) {
+                fs.mkdirSync(screenshotDir, { recursive: true });
+            }
+
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const testName = test.title.replace(/\s+/g, '_');
+            const filePath = path.join(screenshotDir, `${testName}_${timestamp}.png`);
+
+            await browser.saveScreenshot(filePath);
+            console.log(`\n📸 Screenshot saved: ${filePath}`);
+        }
+    },
 }

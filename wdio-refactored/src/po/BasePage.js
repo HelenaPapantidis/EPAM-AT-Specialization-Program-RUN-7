@@ -85,6 +85,4 @@ export default class BasePage {
       { timeout, interval: 500 }
     ).catch(() => { });
   }
-
-
 }

@@ -4,12 +4,12 @@
   "description": "WebdriverIO Test Automation Framework with Page Object Model",
   "type": "module",
   "scripts": {
-    "test": "wdio run ./wdio.conf.js",
-    "test:auth": "wdio run ./wdio.conf.js --spec=test/auth.test.js",
-    "test:browse": "wdio run ./wdio.conf.js --spec=test/browse.test.js",
-    "test:cart": "wdio run ./wdio.conf.js --spec=test/cart.test.js",
-    "test:product": "wdio run ./wdio.conf.js --spec=test/productDetails.test.js",
-    "test:profile": "wdio run ./wdio.conf.js --spec=test/profile.test.js"
+    "test": "wdio run ./src/config/wdio.conf.js",
+    "test:auth": "wdio run ./src/config/wdio.conf.js --spec=src/tests/auth.test.js",
+    "test:browse": "wdio run ./src/config/wdio.conf.js --spec=src/tests/browse.test.js",
+    "test:cart": "wdio run ./src/config/wdio.conf.js --spec=src/tests/cart.test.js",
+    "test:product": "wdio run ./src/config/wdio.conf.js --spec=src/tests/productDetails.test.js",
+    "test:profile": "wdio run ./src/config/wdio.conf.js --spec=src/tests/profile.test.js"
   },
   "keywords": [
     "webdriverio",

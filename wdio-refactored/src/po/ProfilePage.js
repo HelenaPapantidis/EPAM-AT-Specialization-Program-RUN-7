@@ -11,7 +11,6 @@ class ProfilePage extends BasePage {
   get updateProfileButton() { return $("[data-test='update-profile-submit']"); }
   get successAlert() { return $(".alert.alert-success"); }
 
-
   async open() {
     await super.open('/account/profile');
   }
@@ -38,7 +37,6 @@ class ProfilePage extends BasePage {
       }
     }
 
-    // Click update profile button
     await this.scrollAndClick(this.updateProfileButton);
   }
 }

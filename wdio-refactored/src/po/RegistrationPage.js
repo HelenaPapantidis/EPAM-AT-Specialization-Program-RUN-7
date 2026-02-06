@@ -64,12 +64,10 @@ class RegistrationPage extends BasePage {
     await this.setInputValue(this.passwordInput, userData.password);
   }
 
-  
   async submitRegistration() {
     await this.scrollAndClick(this.registerButton);
   }
 
-  
   async register(userData) {
     await this.fillRegistrationForm(userData);
     await this.submitRegistration();

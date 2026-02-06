@@ -1,6 +1,5 @@
 import BasePage from './BasePage.js';
 
-
 class HomePage extends BasePage {
   
   get productCards() {
@@ -81,7 +80,6 @@ class HomePage extends BasePage {
     );
   }
 
-  
   async goToCategory(category) {
     await super.open(`/category/${category}`);
   }

@@ -1,12 +1,9 @@
-import LoginPage from '../pages/LoginPage.js';
+import LoginPage from '../po/LoginPage.js';
 import { validUser, testUserTemplate } from '../data/users.js';
-
-
 
 export function generateRandomEmail() {
   return `testuser${Date.now()}@mail.com`;
 }
-
 
 export function generateUserData(overrides = {}) {
   return {
@@ -21,5 +18,3 @@ export async function loginAsValidUser(email = validUser.email, password = valid
   await LoginPage.login(email, password);
   await LoginPage.waitForUrlContains("/account", 10000, "Login did not complete");
 }
-
-

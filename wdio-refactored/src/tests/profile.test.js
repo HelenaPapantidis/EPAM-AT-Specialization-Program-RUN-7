@@ -1,20 +1,16 @@
-import ProfilePage from '../pages/ProfilePage.js';
-import HomePage from '../pages/HomePage.js';
-import ProductDetailsPage from '../pages/ProductDetailsPage.js';
-import FavoritesPage from '../pages/FavoritesPage.js';
+import ProfilePage from '../po/ProfilePage.js';
+import HomePage from '../po/HomePage.js';
+import ProductDetailsPage from '../po/ProductDetailsPage.js';
+import FavoritesPage from '../po/FavoritesPage.js';
 import { loginAsValidUser } from '../helpers/testHelpers.js';
-
 
 describe("Profile Scenarios", () => {
 
   it("should update profile information", async () => {
-    // Login with valid credentials
     await loginAsValidUser();
     await ProfilePage.open();
-    // Wait for page to load
     await ProfilePage.waitForPageLoad();
 
-    // Update profile information
     await ProfilePage.updateProfile({
       firstName: "NewName",
       lastName: "TestLastName",
@@ -38,21 +34,14 @@ describe("Profile Scenarios", () => {
     await ProductDetailsPage.waitForSuccessToast();
     await ProductDetailsPage.waitForToastDisappear();
 
-
     await FavoritesPage.open();
-
     await FavoritesPage.waitForPageLoad();
 
-    // Verify favorite card is displayed
     await FavoritesPage.waitForFavoriteCard();
     const isFavoriteDisplayed = await FavoritesPage.isFavoriteCardDisplayed();
     await expect(isFavoriteDisplayed).toBe(true);
 
-    // Delete favorite
     await FavoritesPage.deleteFavorite();
-
-    
     await FavoritesPage.waitForEmptyMessage();
   });
-
 });
