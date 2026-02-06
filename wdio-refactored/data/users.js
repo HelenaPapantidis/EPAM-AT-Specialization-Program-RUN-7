@@ -1,6 +1,6 @@
 export const validUser = {
-  email: "customer2@practicesoftwaretesting.com",
-  password: "welcome01"
+  email: process.env.VALID_USER_EMAIL,
+  password: process.env.VALID_USER_PASSWORD
 };
 
 export const testUserTemplate = {

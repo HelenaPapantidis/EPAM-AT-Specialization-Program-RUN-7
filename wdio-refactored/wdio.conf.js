@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 export const config = {
     //
     // ====================
@@ -51,7 +54,7 @@ export const config = {
     
     bail: 0,
     
-    baseUrl: "https://practicesoftwaretesting.com",
+    baseUrl: process.env.BASE_URL || "https://practicesoftwaretesting.com",
     
     waitforTimeout: 30000,
     
