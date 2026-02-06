@@ -18,20 +18,18 @@ class LoginPage extends BasePage {
     return $("[data-test='register-link']");
   }
 
-  ////////////////////////////////////////////
   async open() {
     await super.open('/auth/login');
   }
 
   async login(email, password) {
-    await this.emailInput.setValue(email);
-    await this.passwordInput.setValue(password);
-    await this.loginButton.click();
+    await this.setInputValue(this.emailInput, email);
+    await this.setInputValue(this.passwordInput, password);
+    await this.clickElement(this.loginButton);
   }
 
-  
   async goToRegister() {
-    await this.registerLink.click();
+    await this.clickElement(this.registerLink);
   }
 }
 

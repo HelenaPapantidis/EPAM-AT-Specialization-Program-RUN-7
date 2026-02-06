@@ -28,7 +28,7 @@ describe("Product Details Feature", () => {
     await expect(productName).toBe(cardProductName);
 
     // Verify add to cart button exists and is clickable
-    const addToCartBtn = await ProductDetailsPage.addToCartButtonAlt;
+    const addToCartBtn = await ProductDetailsPage.addToCartButton;
     await expect(addToCartBtn).toExist();
     await expect(addToCartBtn).toBeClickable();
   });

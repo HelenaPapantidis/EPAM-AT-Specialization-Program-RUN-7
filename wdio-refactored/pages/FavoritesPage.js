@@ -19,8 +19,6 @@ class FavoritesPage extends BasePage {
     return this.pageTitle.parentElement();
   }
 
-  //////////////////////////////////////////////////////////////
-
   async open() {
     await super.open('/account/favorites');
   }
@@ -57,12 +55,6 @@ class FavoritesPage extends BasePage {
       },
       { timeout, timeoutMsg: "Empty favorites message did not appear" }
     );
-  }
-
-  
-  async isEmpty() {
-    const text = await this.getElementText(this.emptyFavoritesMessage);
-    return text.includes("There are no favorites yet");
   }
 }
 

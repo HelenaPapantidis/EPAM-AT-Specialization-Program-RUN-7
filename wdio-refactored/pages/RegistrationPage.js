@@ -66,11 +66,7 @@ class RegistrationPage extends BasePage {
 
   
   async submitRegistration() {
-    await this.registerButton.scrollIntoView();
-    await this.waitForElement(this.registerButton);
-    await this.clickElement(this.registerButton);
-    // Wait for redirect to login page
-    await browser.pause(3000);
+    await this.scrollAndClick(this.registerButton);
   }
 
   

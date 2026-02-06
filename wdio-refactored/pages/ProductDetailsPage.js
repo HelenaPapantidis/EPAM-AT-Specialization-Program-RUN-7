@@ -15,20 +15,12 @@ class ProductDetailsPage extends BasePage {
     return $("[data-test='add-to-cart']");
   }
 
-  get addToCartButtonAlt() {
-    return $("#btn-add-to-cart");
-  }
-
   get addToFavoritesButton() {
     return $("[data-test='add-to-favorites']");
   }
 
   get toast() {
     return $(".ngx-toastr, .toast");
-  }
-
-  get successToast() {
-    return $(".toast-success");
   }
 
   /**
@@ -64,20 +56,15 @@ class ProductDetailsPage extends BasePage {
    * Add product to favorites
    */
   async addToFavorites() {
-
-    await this.addToFavoritesButton.waitForDisplayed({ timeout: 10000 });
-    await this.addToFavoritesButton.scrollIntoView();
-    await this.addToFavoritesButton.click();
+    await this.scrollAndClick(this.addToFavoritesButton);
   }
 
   /**
    * Wait for success toast to appear
-   * @param {number} timeout - Maximum wait time in milliseconds (default: 5000)
+   * @param {number} timeout - Maximum wait time in milliseconds (default: 10000)
    */
   async waitForSuccessToast(timeout = 10000) {
-    // Wait for any toast notification
-    const toast = await $('.ngx-toastr, .toast, div[role="alert"]');
-    await toast.waitForDisplayed({ timeout });
+    await this.waitForElement(this.toast, timeout);
   }
 
   /**

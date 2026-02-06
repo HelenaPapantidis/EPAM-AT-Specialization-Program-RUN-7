@@ -13,5 +13,5 @@ export const testUserTemplate = {
   state: "Minnesota",
   country: "Serbia",
   phone: "1234567890",
-  password: "MrzimJutro1234!"
+  password: "TestPassword1234!"
 };

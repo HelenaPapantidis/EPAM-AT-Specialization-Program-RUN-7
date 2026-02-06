@@ -34,21 +34,13 @@ class ProfilePage extends BasePage {
 
     for (const [key, element] of Object.entries(fieldMap)) {
       if (profileData[key] !== undefined) {
-        await element.waitForClickable();
-        // 2. setValue automatic erases existing value, so we can directly set the new value
-        await element.setValue(profileData[key]);
+        await this.setInputValue(element, profileData[key]);
       }
     }
 
     // Click update profile button
     await this.scrollAndClick(this.updateProfileButton);
   }
-
-  async successAlertText() {
-    await this.waitForElement(this.successAlert).getText();
-  }
-
-
 }
 
 export default new ProfilePage();
