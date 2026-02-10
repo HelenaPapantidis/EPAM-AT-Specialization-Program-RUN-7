@@ -1,6 +1,10 @@
 class AccountPage {
+  get profileLink() {
+    return cy.get('[data-test="nav-profile"]');
+  }
+
   clickProfileLink() {
-    cy.get('[data-test="nav-profile"]').should('be.visible').click();
+    this.profileLink.should('be.visible').click();
   }
 }
 

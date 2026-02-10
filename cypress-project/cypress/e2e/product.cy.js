@@ -22,9 +22,9 @@ describe("Product details", () => {
             expect(h1Text.trim()).to.eq(productName.trim());
           });
 
-        ProductDetailsPage.getDescriptionBox().should("be.visible");
+        ProductDetailsPage.descriptionBox.should("be.visible");
 
-        ProductDetailsPage.getAddToCartButton()
+        ProductDetailsPage.addToCartButton
           .should("be.visible")
           .and("not.be.disabled");
       });

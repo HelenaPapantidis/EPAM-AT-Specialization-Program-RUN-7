@@ -1,35 +1,28 @@
 class LoginPage {
-    // Login action
-    login(email, password) {
-      this.getEmailInput().clear().type(email);
-      this.getPasswordInput().clear().type(password);
-      this.getLoginButton().click();
-    }
-  // Navigation
+  get emailInput() {
+    return cy.get('[data-test="email"]');
+  }
+
+  get passwordInput() {
+    return cy.get('[data-test="password"]');
+  }
+
+  get loginButton() {
+    return cy.get('[data-test="login-submit"]');
+  }
+
+  get pageHeading() {
+    return cy.get('h1');
+  }
+
   goToLogin() {
     cy.visit('auth/login');
   }
 
-  // Getters - samo zaauth.cy.js test gde testiraš step-by-step
-  getEmailInput() {
-    return cy.get('[data-test="email"]');
-  }
-
-  getPasswordInput() {
-    return cy.get('[data-test="password"]');
-  }
-
-  getLoginButton() {
-    return cy.get('[data-test="login-submit"]');
-  }
-
-  getPageHeading() {
-    return cy.get('h1');
-  }
-
-  // Assertion helper
-  verifyLoginSuccess() {
-    cy.url().should('include', '/account');
+  login(email, password) {
+    this.emailInput.clear().type(email);
+    this.passwordInput.clear().type(password);
+    this.loginButton.click();
   }
 }
 

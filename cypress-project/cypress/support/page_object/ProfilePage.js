@@ -1,53 +1,49 @@
 class ProfilePage {
-  
-  getFirstNameInput() {
+  get firstNameInput() {
     return cy.get('[data-test="first-name"]');
   }
 
-  getLastNameInput() {
+  get lastNameInput() {
     return cy.get('[data-test="last-name"]');
   }
 
-  getPhoneInput() {
+  get phoneInput() {
     return cy.get('[data-test="phone"]');
   }
 
-  getPostalCodeInput() {
+  get postalCodeInput() {
     return cy.get('[data-test="postal_code"]');
   }
 
-  getCityInput() {
+  get cityInput() {
     return cy.get('[data-test="city"]');
   }
 
-  getStateInput() {
+  get stateInput() {
     return cy.get('[data-test="state"]');
   }
 
-  getUpdateProfileButton() {
+  get updateProfileButton() {
     return cy.get('[data-test="update-profile-submit"]');
   }
 
-  getSuccessMessage() {
+  get successMessage() {
     return cy.get("div.alert-success", { timeout: 20000 });
   }
 
-  
   updateProfile({ firstName, lastName, phone, postalCode, city, state }) {
-    this.getFirstNameInput().clear().type(firstName);
-    this.getLastNameInput().clear().type(lastName);
-    this.getPhoneInput().clear().type(phone);
-    this.getPostalCodeInput().clear().type(postalCode);
-    this.getCityInput().clear().type(city);
-    this.getStateInput().clear().type(state);
-    this.getUpdateProfileButton().click();
+    this.firstNameInput.clear().type(firstName);
+    this.lastNameInput.clear().type(lastName);
+    this.phoneInput.clear().type(phone);
+    this.postalCodeInput.clear().type(postalCode);
+    this.cityInput.clear().type(city);
+    this.stateInput.clear().type(state);
+    this.updateProfileButton.click();
   }
 
-  
-  getSuccessMessageText() {
-    return this.getSuccessMessage().invoke('text');
+  get successMessageText() {
+    return this.successMessage.invoke('text');
   }
-  
 }
 
 export default new ProfilePage();

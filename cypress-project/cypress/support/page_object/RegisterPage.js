@@ -1,95 +1,75 @@
 class RegisterPage {
-  
-  // Getters
-  
-  getFirstNameInput() {
+  get firstNameInput() {
     return cy.get('[data-test="first-name"]');
   }
 
-  getLastNameInput() {
+  get lastNameInput() {
     return cy.get('[data-test="last-name"]');
   }
 
-  getDateOfBirthInput() {
+  get dateOfBirthInput() {
     return cy.get('[data-test="dob"]');
   }
 
-  getStreetInput() {
+  get streetInput() {
     return cy.get('[data-test="street"]');
   }
 
-  getPostalCodeInput() {
+  get postalCodeInput() {
     return cy.get('[data-test="postal_code"]');
   }
 
-  getCityInput() {
+  get cityInput() {
     return cy.get('[data-test="city"]');
   }
 
-  getStateInput() {
+  get stateInput() {
     return cy.get('[data-test="state"]');
   }
 
-  getCountrySelect() {
+  get countrySelect() {
     return cy.get('[data-test="country"]');
   }
 
-  getPhoneInput() {
+  get phoneInput() {
     return cy.get('[data-test="phone"]');
   }
 
-  getEmailInput() {
+  get emailInput() {
     return cy.get('[data-test="email"]');
   }
 
-  getPasswordInput() {
+  get passwordInput() {
     return cy.get('[data-test="password"]');
   }
- 
-  getRegisterButton() {
+
+  get registerButton() {
     return cy.get('[data-test="register-submit"]');
   }
-
- 
-  // Actions
 
   clickRegisterLinkFromLogin() {
     cy.contains('a', 'Register your account').click();
   }
 
   fillRegistrationForm({
-    firstName,
-    lastName,
-    dob,
-    street,
-    postcode,
-    city,
-    state,
-    country,
-    phone,
-    email,
-    password
+    firstName, lastName, dob, street, postcode,
+    city, state, country, phone, email, password
   }) {
-    this.getFirstNameInput().clear().type(firstName);
-    this.getLastNameInput().clear().type(lastName);
-    this.getDateOfBirthInput().clear().type(dob);
-    this.getStreetInput().clear().type(street);
-    this.getPostalCodeInput().clear().type(postcode);
-    this.getCityInput().clear().type(city);
-    this.getStateInput().clear().type(state);
-    this.getCountrySelect().select(country);
-    this.getPhoneInput().clear().type(phone);
-    this.getEmailInput().clear().type(email);
-    this.getPasswordInput().clear().type(password);
+    this.firstNameInput.clear().type(firstName);
+    this.lastNameInput.clear().type(lastName);
+    this.dateOfBirthInput.clear().type(dob);
+    this.streetInput.clear().type(street);
+    this.postalCodeInput.clear().type(postcode);
+    this.cityInput.clear().type(city);
+    this.stateInput.clear().type(state);
+    this.countrySelect.select(country);
+    this.phoneInput.clear().type(phone);
+    this.emailInput.clear().type(email);
+    this.passwordInput.clear().type(password);
   }
 
   clickRegisterButton() {
-    this.getRegisterButton().click();
-  }
-
-  
-  verifyRedirectedToLogin() {
-    cy.url().should('include', 'auth/login');
+    this.registerButton.click();
   }
 }
 

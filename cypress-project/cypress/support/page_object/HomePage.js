@@ -1,43 +1,39 @@
-   
 class HomePage {
-  // Product getters
-  getProductItems() {
+  get productItems() {
     return cy.get('a.card');
   }
 
-  getProductTitleElements() {
+  get productTitleElements() {
     return cy.get('a.card .card-title');
   }
 
-  // Search getters
-  getSearchInput() {
+  get searchInput() {
     return cy.get('[data-test="search-query"]');
   }
 
-  getSearchButton() {
+  get searchButton() {
     return cy.get('[data-test="search-submit"]');
   }
 
-  // Category getters
-  getCategoriesMenu() {
+  get categoriesMenu() {
     return cy.get('[data-cy=categories-menu]');
   }
-  
-   getSearchCaption() {
+
+  get searchCaption() {
     return cy.get('h3[data-test="search-caption"]');
   }
-  // Actions
+
   clickFirstProduct() {
-    this.getProductItems().first().click();
+    this.productItems.first().click();
   }
 
   searchProduct(searchTerm) {
-    this.getSearchInput().clear().type(searchTerm);
-    this.getSearchButton().click();
+    this.searchInput.clear().type(searchTerm);
+    this.searchButton.click();
   }
 
   openCategoriesMenu() {
-    this.getCategoriesMenu().click();
+    this.categoriesMenu.click();
   }
 
   selectHandToolsCategory() {

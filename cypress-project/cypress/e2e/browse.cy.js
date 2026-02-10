@@ -10,7 +10,7 @@ describe("Product browsing", () => {
 
       const searchTerm = "Pliers";
       HomePage.searchProduct(searchTerm);
-      HomePage.getSearchCaption().should("contain", searchTerm);
+      HomePage.searchCaption.should("contain", searchTerm);
     });
   });
   
