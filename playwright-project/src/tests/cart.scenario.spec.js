@@ -1,12 +1,9 @@
-import { test, expect } from "@playwright/test";
-import { HomePage } from "@/pages/HomePage";
-import { ProductPage } from "@/pages/ProductPage";
+import { test, expect } from "@src/tests/fixtures";
+
 
 test.describe("Shopping Cart Scenarios", () => {
-  test("User can add a product to the basket", async ({ page }) => {
-    const homePage = new HomePage(page);
-    const productPage = new ProductPage(page);
-
+  test("User can add a product to the basket", async ({ homePage, productPage, page }) => {
+   
     await test.step("User navigates to homepage", async () => {
       await homePage.open();
     });
@@ -20,22 +17,22 @@ test.describe("Shopping Cart Scenarios", () => {
     });
 
     await test.step("Wait for product details to load", async () => {
-      await productPage.waitForProductToLoad("Combination Pliers");
+      await expect(productPage.getProductHeading("Combination Pliers")).toBeVisible();
     });
 
     await test.step("Verify Add to Cart button is visible and enabled", async () => {
-      const addToCartButton = page.locator('[data-test="add-to-cart"]');
+      const addToCartButton = productPage.addToCartButton;
       await expect(addToCartButton).toBeVisible();
       await expect(addToCartButton).toBeEnabled();
     });
 
     await test.step("User adds product to cart", async () => {
-      const addToCartButton = page.locator('[data-test="add-to-cart"]');
-      await addToCartButton.click();
+     await productPage.addToCart();
+
     });
 
     await test.step("Verify success message", async () => {
-      await productPage.verifySuccessMessage();
+      await expect(productPage.successMessage).toBeVisible();
     });
 
     await test.step("Navigate to checkout page", async () => {
@@ -48,7 +45,7 @@ test.describe("Shopping Cart Scenarios", () => {
     });
 
     await test.step("Verify product appears in cart", async () => {
-      await productPage.verifyProductInCart("Combination Pliers");
+      await expect(productPage.getProductInCart("Combination Pliers")).toBeVisible();
     });
   });
 });

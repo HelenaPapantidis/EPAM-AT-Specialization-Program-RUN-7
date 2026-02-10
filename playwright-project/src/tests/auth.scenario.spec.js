@@ -1,11 +1,8 @@
-import { test, expect } from "@playwright/test";
-import { LoginPage } from "@/pages/LoginPage";
-import { RegistrationPage } from "@/pages/RegistrationPage";
+import { test, expect } from "@src/tests/fixtures";
 import { generateUniqueUser, validCredentials } from "@/data/testData";
 
 test.describe("Authentication Scenarios", () => {
-  test("User can successfully register with valid data", async ({ page }) => {
-    const registrationPage = new RegistrationPage(page);
+  test("User can successfully register with valid data", async ({ registrationPage, page }) => {
     const user = generateUniqueUser();
 
     await test.step("User opens registration page", async () => {
@@ -23,11 +20,7 @@ test.describe("Authentication Scenarios", () => {
     });
   });
 
-  test("User can successfully login with valid credentials", async ({
-    page,
-  }) => {
-    const loginPage = new LoginPage(page);
-
+  test("User can successfully login with valid credentials", async ({ loginPage, page }) => {
     await test.step("User is on login page", async () => {
       await loginPage.open();
     });

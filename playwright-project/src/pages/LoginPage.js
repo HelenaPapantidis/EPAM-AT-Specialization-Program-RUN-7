@@ -1,16 +1,26 @@
-export class LoginPage {
+export class LoginPage extends BasePage{
+  
   constructor(page) {
-    this.page = page;
-    this.emailInput = page.locator('[data-test="email"]');
-    this.passwordInput = page.locator('[data-test="password"]');
-    this.loginButton = page.locator('[data-test="login-submit"]');
+    super(page);
   }
 
-  async open() {
-    await this.page.goto("/auth/login");
+async open() {
+  await super.open("/auth/login");
+}
+
+  get emailInput() {
+    return this.page.locator('[data-test="email"]');
   }
 
-  async login(email, password) {
+  get passwordInput() {
+    return this.page.locator('[data-test="password"]');
+  }
+
+  get loginButton() {
+    return this.page.locator('[data-test="login-submit"]');
+  }
+
+    async login(email, password) {
     await this.emailInput.fill(email);
     await this.passwordInput.fill(password);
     await this.loginButton.click();

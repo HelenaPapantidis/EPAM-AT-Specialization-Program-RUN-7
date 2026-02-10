@@ -1,7 +1,11 @@
-export class ProductGridComponent {
+export class ProductGridComponent extends BasePage {
+  
   constructor(page) {
-    this.page = page;
-    this.products = page.locator("a.card");
+    super(page);
+  }
+
+  get products() {
+    return this.page.locator("a.card");
   }
 
   async waitUntilLoaded() {

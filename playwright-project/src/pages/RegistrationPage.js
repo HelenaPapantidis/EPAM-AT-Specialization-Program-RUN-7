@@ -1,21 +1,43 @@
-export class RegistrationPage {
+export class RegistrationPage extends BasePage {
+  
   constructor(page) {
-    this.page = page;
-    this.firstName = page.locator('[data-test="first-name"]');
-    this.lastName = page.locator('[data-test="last-name"]');
-    this.dob = page.locator('[data-test="dob"]');
-    this.street = page.locator('[data-test="street"]');
-    this.postalcode = page.locator('[data-test="postal_code"]');
-    this.city = page.locator('[data-test="city"]');
-    this.state = page.locator('[data-test="state"]');
-    this.email = page.locator('[data-test="email"]');
-    this.password = page.locator('[data-test="password"]');
-    this.registerButton = page.locator('[data-test="register-submit"]');
+    super(page);
+  }
+
+  get firstName() {
+    return this.page.locator('[data-test="first-name"]');
+  }
+  get lastName() {
+    return this.page.locator('[data-test="last-name"]');
+  }
+  get dob() {
+    return this.page.locator('[data-test="dob"]');
+  }
+  get street() {
+    return this.page.locator('[data-test="street"]');
+  }
+  get postalcode() {
+    return this.page.locator('[data-test="postal_code"]');
+  }
+  get city() {
+    return this.page.locator('[data-test="city"]');
+  }
+  get state() {
+    return this.page.locator('[data-test="state"]');
+  }
+  get email() {
+    return this.page.locator('[data-test="email"]');
+  }
+  get password() {
+    return this.page.locator('[data-test="password"]');
+  }
+  get registerButton() {
+    return this.page.locator('[data-test="register-submit"]');
   }
 
   async open() {
-    await this.page.goto("/auth/register");
-  }
+  await super.open("/auth/register");
+}
 
   async register(user) {
     await this.firstName.fill(user.firstName);

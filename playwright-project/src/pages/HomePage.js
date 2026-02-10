@@ -1,15 +1,22 @@
 import { ProductGridComponent } from "./ProductGridComponent";
 
-export class HomePage {
+export class HomePage extends BasePage{
+  
   constructor(page) {
-    this.page = page;
-    this.searchInput = page.locator('[data-test="search-query"]');
-    this.searchButton = page.getByRole("button", { name: "Search" });
+    super(page);
     this.productGrid = new ProductGridComponent(page);
   }
 
-  async open() {
-    await this.page.goto("/");
+async open() {
+  await super.open("/");
+}
+
+  get searchInput() {
+    return this.page.locator('[data-test="search-query"]');
+  }
+
+  get searchButton() {
+    return this.page.getByRole("button", { name: "Search" });
   }
 
   async searchProduct(name) {
@@ -17,10 +24,9 @@ export class HomePage {
     await this.searchButton.click();
   }
 
-  async verifySearchHeading(searchTerm) {
-    const heading = this.page.getByRole("heading", {
-      name: `Searched for: ${searchTerm}`,
-    });
-    await heading.waitFor({ state: "visible" });
-  }
+ getSearchHeading(searchTerm) {
+  return this.page.getByRole("heading", {
+    name: `Searched for: ${searchTerm}`,
+  });
+}
 }
