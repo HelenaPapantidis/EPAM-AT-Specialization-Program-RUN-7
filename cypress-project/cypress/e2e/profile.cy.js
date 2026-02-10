@@ -7,6 +7,7 @@ describe("User profile", () => {
     LoginPage.goToLogin();
     LoginPage.login(Cypress.env("USER_EMAIL"), Cypress.env("USER_PASSWORD"));
     cy.goToProfile();
+    cy.url().should("include", "/profile");
     
 
     // Load profile update data from fixture

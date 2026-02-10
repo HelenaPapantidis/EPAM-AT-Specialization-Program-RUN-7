@@ -1,4 +1,5 @@
 class RegisterPage {
+  
   get firstNameInput() {
     return cy.get('[data-test="first-name"]');
   }

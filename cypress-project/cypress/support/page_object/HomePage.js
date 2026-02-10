@@ -1,4 +1,5 @@
 class HomePage {
+  
   get productItems() {
     return cy.get('a.card');
   }
