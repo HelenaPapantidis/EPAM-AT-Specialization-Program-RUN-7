@@ -78,7 +78,14 @@ test('should get booking by id', async () => {
   const body = await response.json()
 
   expect(response.status).toBe(200)
+
+  // HEADERS
+  expect(response.headers.get('content-type'))
+    .toContain('application/json')
+
+  // BODY
   expect(body).toHaveProperty('firstname')
+  expect(body.firstname).toBe('Helena')
 })
 
 /**
@@ -110,7 +117,14 @@ test('should update booking', async () => {
 
   const body = await response.json()
 
+  // STATUS
   expect(response.status).toBe(200)
+
+  // HEADERS
+  expect(response.headers.get('content-type'))
+    .toContain('application/json')
+
+  // BODY
   expect(body.firstname).toBe('Updated')
 })
 
@@ -128,5 +142,10 @@ test('should delete booking', async () => {
     }
   )
 
+  // STATUS
   expect(response.status).toBe(201)
+
+  // HEADERS
+  expect(response.headers.get('content-type'))
+    .toContain('text/plain')
 })
