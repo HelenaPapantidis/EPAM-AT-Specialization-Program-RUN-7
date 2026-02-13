@@ -1,7 +1,4 @@
-import * as chai from "chai";
-chai.should();
-import HomePage from '../po/HomePage.js';
-import ProductDetailsPage from '../po/ProductDetailsPage.js';
+import { HomePage, ProductDetailsPage } from '../po/index.js';
 
 describe("Product Details Feature", () => {
 

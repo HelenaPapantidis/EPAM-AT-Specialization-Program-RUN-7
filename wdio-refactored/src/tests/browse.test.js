@@ -1,6 +1,5 @@
-import { expect as chaiExpect } from "chai";
-import HomePage from '../po/HomePage.js';
-import { searchData, categories } from '../data/products.js';
+import { HomePage } from '../po/index.js';
+import { searchData, categories } from '../data/index.js';
 
 describe("Browse Product Scenarios", () => {
 
@@ -10,7 +9,7 @@ describe("Browse Product Scenarios", () => {
     await HomePage.waitForProductsToLoad();
 
     const productCount = await HomePage.getProductCount();
-    chaiExpect(productCount).to.be.greaterThan(0);
+    await expect(productCount).toBeGreaterThan(0);
   });
 
   it("should filter products by category", async () => {
@@ -18,9 +17,8 @@ describe("Browse Product Scenarios", () => {
     await HomePage.waitForProductsToLoad(15000);
 
     const productCount = await HomePage.getProductCount();
-    chaiExpect(productCount).to.be.greaterThan(0);
+    await expect(productCount).toBeGreaterThan(0);
 
-    const url = await HomePage.getCurrentUrl();
-    chaiExpect(url.toLowerCase()).to.include("hand-tools");
+    await expect(browser).toHaveUrl(expect.stringContaining("hand-tools"));
   });
 });

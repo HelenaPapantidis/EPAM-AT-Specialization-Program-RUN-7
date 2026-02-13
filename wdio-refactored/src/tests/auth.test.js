@@ -1,7 +1,6 @@
-import LoginPage from '../po/LoginPage.js';
-import RegistrationPage from '../po/RegistrationPage.js';
-import { generateUserData } from '../helpers/testHelpers.js';
-import { validUser } from '../data/users.js';
+import { LoginPage, RegistrationPage } from '../po/index.js';
+import { generateUserData } from '../helpers/index.js';
+import { validUser } from '../data/index.js';
 
 describe("Auth Scenarios", () => {
 

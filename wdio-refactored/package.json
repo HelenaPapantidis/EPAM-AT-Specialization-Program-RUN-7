@@ -1,5 +1,5 @@
 {
-  "name": "wdio-refactored",
+  "name": "c",
   "version": "1.0.0",
   "description": "WebdriverIO Test Automation Framework with Page Object Model",
   "type": "module",
@@ -29,5 +29,9 @@
   },
   "dependencies": {
     "dotenv": "^17.2.4"
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "test"
   }
 }

@@ -1,5 +1,5 @@
-import LoginPage from '../po/LoginPage.js';
-import { validUser, testUserTemplate } from '../data/users.js';
+import { LoginPage } from '../po/index.js';
+import { validUser, testUserTemplate } from '../data/index.js';
 
 export function generateRandomEmail() {
   return `testuser${Date.now()}@mail.com`;

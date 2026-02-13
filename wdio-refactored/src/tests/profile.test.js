@@ -1,13 +1,13 @@
-import ProfilePage from '../po/ProfilePage.js';
-import HomePage from '../po/HomePage.js';
-import ProductDetailsPage from '../po/ProductDetailsPage.js';
-import FavoritesPage from '../po/FavoritesPage.js';
-import { loginAsValidUser } from '../helpers/testHelpers.js';
+import { ProfilePage, HomePage, ProductDetailsPage, FavoritesPage } from '../po/index.js';
+import { loginAsValidUser } from '../helpers/index.js';
 
 describe("Profile Scenarios", () => {
 
-  it("should update profile information", async () => {
+  beforeEach(async () => {
     await loginAsValidUser();
+  });
+
+  it("should update profile information", async () => {
     await ProfilePage.open();
     await ProfilePage.waitForPageLoad();
 
@@ -26,7 +26,6 @@ describe("Profile Scenarios", () => {
   });
 
   it("should add product to favorites", async () => {
-    await loginAsValidUser();
     await HomePage.open();
     await HomePage.clickFirstProduct();
     await ProductDetailsPage.waitForPageLoad();

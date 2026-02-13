@@ -1,6 +1,4 @@
-import HomePage from '../po/HomePage.js';
-import ProductDetailsPage from '../po/ProductDetailsPage.js';
-import CartPage from '../po/CartPage.js';
+import { HomePage, ProductDetailsPage, CartPage } from '../po/index.js';
 
 describe("Shopping Cart", () => {
   

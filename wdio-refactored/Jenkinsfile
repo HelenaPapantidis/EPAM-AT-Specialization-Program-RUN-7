@@ -1,0 +1,98 @@
+pipeline {
+    agent any
+    
+    tools {
+        nodejs 'NodeJS-18'  
+    }
+    
+    environment {
+        VALID_USER_EMAIL = credentials('valid-user-email')
+        VALID_USER_PASSWORD = credentials('valid-user-password')
+    }
+    
+    options {
+        timeout(time: 30, unit: 'MINUTES')
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('Install Dependencies') {
+            steps {
+                dir('wdio-refactored') {
+                    bat 'npm ci'
+                }
+            }
+        }
+        
+        stage('Run Tests') {
+            parallel {
+                stage('Auth Tests') {
+                    steps {
+                        dir('wdio-refactored') {
+                            bat 'npm run test:auth'
+                        }
+                    }
+                }
+                stage('Browse Tests') {
+                    steps {
+                        dir('wdio-refactored') {
+                            bat 'npm run test:browse'
+                        }
+                    }
+                }
+                stage('Cart Tests') {
+                    steps {
+                        dir('wdio-refactored') {
+                            bat 'npm run test:cart'
+                        }
+                    }
+                }
+                stage('Product Tests') {
+                    steps {
+                        dir('wdio-refactored') {
+                            bat 'npm run test:product'
+                        }
+                    }
+                }
+                stage('Profile Tests') {
+                    steps {
+                        dir('wdio-refactored') {
+                            bat 'npm run test:profile'
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('Run All Tests') {
+            when {
+                branch 'main'
+            }
+            steps {
+                dir('wdio-refactored') {
+                    bat 'npm test'
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+           
+            archiveArtifacts artifacts: 'wdio-refactored/screenshots/**/*.png', allowEmptyArchive: true
+        }
+        success {
+            echo 'Tests passed successfully!'
+        }
+        failure {
+            echo 'Tests failed!'
+        }
+    }
+}
