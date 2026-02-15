@@ -20,7 +20,7 @@
   "report:playwright": "playwright show-report",
 
   "test:wdio:basic": "wdio run ./wdio-chai-basic/wdio.conf.js",
-  "test:wdio:taf": "wdio run ./wdio-TAF/wdio.conf.js",
+  "test:wdio:taf": "wdio run ./wdio-TAF/src/config/wdio.conf.js",
 
   "test:all": "npm run test:api && npm run test:cypress && npm run test:playwright && npm run test:wdio:basic && npm run test:wdio:taf"
 },

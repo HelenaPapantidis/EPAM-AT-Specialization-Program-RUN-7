@@ -1,13 +1,14 @@
 const { defineConfig } = require("cypress");
-require("dotenv").config();
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, '..', '.env') });
 
 module.exports = defineConfig({
   e2e: {
     baseUrl: process.env.BASE_URL || "https://practicesoftwaretesting.com/",
 
     env: {
-      USER_EMAIL: process.env.CYPRESS_USER_EMAIL,
-      USER_PASSWORD: process.env.CYPRESS_USER_PASSWORD,
+      USER_EMAIL: process.env.TEST_USER_EMAIL,
+      USER_PASSWORD: process.env.TEST_USER_PASSWORD,
     },
     // Viewport configuration
     viewportWidth: 1280,
