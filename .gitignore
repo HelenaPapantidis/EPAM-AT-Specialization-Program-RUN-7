@@ -1,43 +1,33 @@
+
+# Node
 node_modules/
 package-lock.json
 
-# Environment variables
+# Env
 .env
-.env.local
-.env.*.local
-
-# Test reports
-allure-results/
-allure-report/
-reports/
-test-results/
-screenshots/
-*.xml
-
-# Logs
-*.log
-npm-debug.log*
-
-# OS files
-.DS_Store
-Thumbs.db
 
 # IDE
-.idea/
 .vscode/
-*.swp
-*.swo
+
+# Logs
+logs/
+*.log
+
+# Playwright
+playwright-report/
+playwright/playwright-report/
+test-results/
+playwright/test-results/
+trace.zip
 
 # Cypress
 cypress/videos/
 cypress/screenshots/
-cypress/downloads/
 
-# Playwright
-playwright-report/
-test-results/
-
-# Misc
-*.tgz
-.cache/
-tmp/
+# WDIO
+allure-results/
+allure-report/
+screenshots/
+wdio-TAF/screenshots/
+wdio-TAF/test-results/
+wdio-logs/

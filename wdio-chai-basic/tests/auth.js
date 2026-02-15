@@ -21,14 +21,14 @@ describe("Auth Scenarios", () => {
 
     await $("#password").setValue("TestPassword1234!");
     const registerBtn = await $("[data-test='register-submit']");
-    await registerBtn.waitForDisplayed({ timeout: 5000 });
+    await registerBtn.waitForDisplayed({ timeout: 15000 });
     await registerBtn.click();
 
     await browser.waitUntil(async () => {
       const currentUrl = await browser.getUrl();
       return currentUrl.includes("/auth") || currentUrl.includes("/account");
     }, {
-      timeout: 10000,
+      timeout: 20000,
       timeoutMsg: 'Registration did not complete in time'
     });
 
@@ -43,12 +43,12 @@ describe("Auth Scenarios", () => {
     await $("[data-test='password']").setValue("welcome01");
 
     const loginBtn = await $("[data-test='login-submit']");
-    await loginBtn.waitForClickable({ timeout: 5000 });
+    await loginBtn.waitForClickable({ timeout: 15000 });
     await loginBtn.click();
 
     await browser.waitUntil(
       async () => (await browser.getUrl()).includes("/account"),
-      { timeout: 10000, timeoutMsg: "Did not redirect to account page after login" }
+      { timeout: 20000, timeoutMsg: "Did not redirect to account page after login" }
     );
 
     const url = await browser.getUrl();

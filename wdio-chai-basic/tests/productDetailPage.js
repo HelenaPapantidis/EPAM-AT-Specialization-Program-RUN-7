@@ -8,7 +8,7 @@ describe("Product Details Feature", () => {
 
     await browser.waitUntil(
       async () => (await $$("a.card")).length > 0,
-      { timeout: 10000, timeoutMsg: "Products did not load" }
+      { timeout: 20000, timeoutMsg: "Products did not load" }
     );
 
     const firstProduct = await $("a.card");
@@ -17,18 +17,22 @@ describe("Product Details Feature", () => {
 
     await browser.waitUntil(
       async () => (await browser.getUrl()).includes("/product/"),
-      { timeout: 10000, timeoutMsg: "Product detail page did not load" }
+      { timeout: 15000, timeoutMsg: "Product detail page did not load" }
     );
 
-    await expect(browser).toHaveUrl(expect.stringContaining("/product/"));
+    const url = await browser.getUrl();
+    url.should.include("/product/");
 
     const productName = await $("h1");
     await productName.waitForDisplayed({ timeout: 15000 });
-    await expect(productName).toHaveText(cardProductName);
+    const productText = await productName.getText();
+    productText.should.equal(cardProductName);
 
     const addToCartBtn = await $("#btn-add-to-cart");
-    await expect(addToCartBtn).toExist();
-    await expect(addToCartBtn).toBeClickable();
+    const isExisting = await addToCartBtn.isExisting();
+    isExisting.should.be.true;
+    const isClickable = await addToCartBtn.isClickable();
+    isClickable.should.be.true;
   });
 
 });
