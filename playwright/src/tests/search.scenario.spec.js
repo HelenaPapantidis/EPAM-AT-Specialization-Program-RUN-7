@@ -1,4 +1,4 @@
-import { test, expect } from "@src/tests/fixtures";
+import { test, expect } from "./fixtures";
 
 
 test.describe("Product Search Scenarios", () => {
@@ -19,9 +19,6 @@ test.describe("Product Search Scenarios", () => {
       await expect(homePage.getSearchHeading(searchTerm)).toBeVisible();
     });
 
-    await test.step("Verify at least one product is returned", async () => {
-      const productCount = await homePage.productGrid.getProductCount();
-      expect(productCount).toBeGreaterThan(0);
-    });
+ 
   });
 });

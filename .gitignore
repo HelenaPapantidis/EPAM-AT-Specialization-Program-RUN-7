@@ -1,7 +1,32 @@
+# Node
 node_modules/
-test-results/
-playwright-report/
-playwright/.cache/
+package-lock.json
+
+# Env
 .env
+
+# IDE
 .vscode/
+
+# Logs
+logs/
 *.log
+
+# Playwright
+playwright-report/
+playwright/playwright-report/
+test-results/
+playwright/test-results/
+trace.zip
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+
+# WDIO
+allure-results/
+allure-report/
+screenshots/
+wdio-TAF/screenshots/
+wdio-TAF/test-results/
+wdio-logs/

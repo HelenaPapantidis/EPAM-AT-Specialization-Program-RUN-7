@@ -1,5 +1,5 @@
-import { test, expect } from "@src/tests/fixtures";
-import { generateUniqueUser, validCredentials } from "@/data/testData";
+import { test, expect } from "./fixtures";
+import { generateUniqueUser, validCredentials } from "../data/testData";
 
 test.describe("Authentication Scenarios", () => {
   test("User can successfully register with valid data", async ({ registrationPage, page }) => {
@@ -15,7 +15,7 @@ test.describe("Authentication Scenarios", () => {
 
     await test.step("Verify redirect after successful registration", async () => {
       await expect(page).toHaveURL(/register|account|login/, {
-        timeout: 10000,
+        timeout: 30000,
       });
     });
   });

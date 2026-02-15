@@ -4,6 +4,7 @@ require("dotenv").config();
 module.exports = defineConfig({
   e2e: {
     baseUrl: process.env.BASE_URL || "https://practicesoftwaretesting.com/",
+
     env: {
       USER_EMAIL: process.env.CYPRESS_USER_EMAIL,
       USER_PASSWORD: process.env.CYPRESS_USER_PASSWORD,

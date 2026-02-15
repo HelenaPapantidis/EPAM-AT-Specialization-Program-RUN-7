@@ -1,25 +1,23 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import LoginPage from './page_object/LoginPage';
+
+// Custom login command - uses LoginPage for consistency
+Cypress.Commands.add('login', (email, password) => {
+  LoginPage.goToLogin();
+  LoginPage.login(email, password);
+  LoginPage.verifyLoginSuccess();
+});
+
+// Add more custom commands if needed
+// Example: Cypress.Commands.add('logout', () => { ... })
+
+Cypress.Commands.add('openHeaderCategoriesMenu', () => {
+  cy.get('a[data-test="nav-categories"]').click();
+});
+
+Cypress.Commands.add('selectCategoryFromDropdown', (categoryName) => {
+  cy.contains('li', categoryName).click();
+});
+
+Cypress.Commands.add('goToProfile', () => {
+  cy.get('[data-test="nav-profile"]').should('be.visible').click();
+});

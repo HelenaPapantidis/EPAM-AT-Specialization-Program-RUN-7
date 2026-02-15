@@ -1,5 +1,39 @@
 {
-  "dependencies": {
-    "dotenv": "^17.2.4"
+  "name": "epam-run-7",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+  "test:api": "jest ./api",
+
+  "test:cypress": "cypress run --config-file cypress/cypress.config.js",
+  "test:cypress:chrome": "cypress run --browser chrome --config-file cypress/cypress.config.js",
+  "test:cypress:firefox": "cypress run --browser firefox --config-file cypress/cypress.config.js",
+  "test:cypress:edge": "cypress run --browser edge --config-file cypress/cypress.config.js",
+  "test:cypress:open": "cypress open --config-file cypress/cypress.config.js",
+
+  "test:playwright": "playwright test --config=playwright/playwright.config.js",
+  "test:playwright:chromium": "playwright test --project=chromium --config=playwright/playwright.config.js",
+  "test:playwright:firefox": "playwright test --project=firefox --config=playwright/playwright.config.js",
+  "test:playwright:webkit": "playwright test --project=webkit --config=playwright/playwright.config.js",
+  "test:playwright:headed": "playwright test --config=playwright/playwright.config.js --headed",
+  "report:playwright": "playwright show-report",
+
+  "test:wdio:basic": "wdio run ./wdio-chai-basic/wdio.conf.js",
+  "test:wdio:taf": "wdio run ./wdio-TAF/wdio.conf.js",
+
+  "test:all": "npm run test:api && npm run test:cypress && npm run test:playwright && npm run test:wdio:basic && npm run test:wdio:taf"
+},
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.9",
+    "@wdio/cli": "^9.23.2",
+    "@wdio/local-runner": "^9.23.2",
+    "@wdio/mocha-framework": "^9.23.2",
+    "@wdio/spec-reporter": "^9.23.2",
+    "chai": "^6.2.2",
+    "cypress": "^15.9.0",
+    "dotenv": "^16.0.0",
+    "jest": "^30.2.0"
   }
 }
