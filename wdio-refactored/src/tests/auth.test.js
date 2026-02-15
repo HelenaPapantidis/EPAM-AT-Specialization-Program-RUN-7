@@ -11,12 +11,12 @@ describe("Auth Scenarios", () => {
     await LoginPage.goToRegister();
     await RegistrationPage.register(userData);
 
-    await expect(browser).toHaveUrl(expect.stringContaining('/auth/login'), { timeout: 30000 });
+    await expect(browser).toHaveUrl(/\/auth\/login/, { timeout: 30000 });
   });
 
   it("should login with valid credentials", async () => {
     await LoginPage.open();
     await LoginPage.login(validUser.email, validUser.password);
-    await expect(browser).toHaveUrl(expect.stringContaining('/account'));
+    await expect(browser).toHaveUrl(/\/account/);
   });
 });

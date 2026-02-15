@@ -15,3 +15,12 @@ export const testUserTemplate = {
   phone: "1234567890",
   password: "PassForTest@1234"
 };
+
+export const profileData = {
+  firstName: "NewName",
+  lastName: "TestLastName",
+  phone: "1234567890",
+  street: "123 Test Street",
+  postalCode: "12345",
+  city: "TestCity"
+};

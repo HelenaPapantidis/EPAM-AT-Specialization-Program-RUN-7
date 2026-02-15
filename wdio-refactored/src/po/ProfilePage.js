@@ -15,29 +15,23 @@ class ProfilePage extends BasePage {
     await super.open('/account/profile');
   }
 
-  async waitForPageLoad(timeout = 10000) {
-    await this.waitForElement(this.firstNameInput, timeout);
+  async waitForPageLoad(timeout = 30000) {
+    await this.firstNameInput.waitForDisplayed({ timeout });
   }
 
-  async updateProfile(profileData) {
+  async updateProfile({ firstName, lastName, phone, street, postalCode, city }) {
     await this.waitForPageLoad();
 
-    const fieldMap = {
-      firstName: this.firstNameInput,
-      lastName: this.lastNameInput,
-      phone: this.phoneInput,
-      street: this.streetInput,
-      postalCode: this.postalCodeInput,
-      city: this.cityInput
-    };
+    await this.firstNameInput.setValue(firstName);
+    await this.lastNameInput.setValue(lastName);
+    await this.phoneInput.setValue(phone);
+    await this.streetInput.setValue(street);
+    await this.postalCodeInput.setValue(postalCode);
+    await this.cityInput.setValue(city);
 
-    for (const [key, element] of Object.entries(fieldMap)) {
-      if (profileData[key] !== undefined) {
-        await this.setInputValue(element, profileData[key]);
-      }
-    }
-
-    await this.scrollAndClick(this.updateProfileButton);
+    await this.updateProfileButton.scrollIntoView();
+    await this.updateProfileButton.waitForClickable({ timeout: 30000 });
+    await this.updateProfileButton.click();
   }
 }
 

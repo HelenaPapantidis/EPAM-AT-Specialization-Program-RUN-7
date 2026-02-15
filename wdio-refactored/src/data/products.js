@@ -1,6 +1,3 @@
-/**
- * Test Data - Search and Product Data
- */
 export const searchData = {
   validProduct: "hammer",
   invalidProduct: "nonexistentproduct123"

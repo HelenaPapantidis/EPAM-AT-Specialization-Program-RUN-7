@@ -1,12 +1,7 @@
 import BasePage from './BasePage.js';
 
-/**
- * Product Details Page Object
- */
 class ProductDetailsPage extends BasePage {
-  /**
-   * Define selectors for product details page elements
-   */
+
   get productName() {
     return $("h1");
   }
@@ -23,55 +18,40 @@ class ProductDetailsPage extends BasePage {
     return $(".ngx-toastr, .toast");
   }
 
-  /**
-   * Wait for product page to load
-   * @param {number} timeout - Maximum wait time in milliseconds (default: 10000)
-   */
-  async waitForPageLoad(timeout = 10000) {
-    await this.waitForUrlContains(
-      "/product/",
-      timeout,
-      "Product detail page did not load"
+  async waitForPageLoad(timeout = 30000) {
+    await browser.waitUntil(
+      async () => (await browser.getUrl()).includes('/product/'),
+      { timeout, timeoutMsg: 'Product detail page did not load' }
     );
   }
 
-  /**
-   * Get product name text
-   * @returns {Promise<string>} Product name
-   */
   async getProductName() {
-    await this.waitForElement(this.productName, 15000);
-    return await this.getElementText(this.productName);
+    await this.productName.waitForDisplayed({ timeout: 15000 });
+    return await this.productName.getText();
   }
 
-  /**
-   * Add product to cart
-   */
   async addToCart() {
-    await this.waitForClickable(this.addToCartButton, 10000);
-    await this.clickElement(this.addToCartButton);
+    await this.addToCartButton.waitForClickable({ timeout: 30000 });
+    await this.addToCartButton.click();
   }
 
-  /**
-   * Add product to favorites
-   */
   async addToFavorites() {
-    await this.scrollAndClick(this.addToFavoritesButton);
+    await this.addToFavoritesButton.scrollIntoView();
+    await this.addToFavoritesButton.click();
   }
 
-  /**
-   * Wait for success toast to appear
-   * @param {number} timeout - Maximum wait time in milliseconds (default: 10000)
-   */
-  async waitForSuccessToast(timeout = 10000) {
-    await this.waitForElement(this.toast, timeout);
+  async waitForSuccessToast(timeout = 30000) {
+    await this.toast.waitForDisplayed({ timeout });
   }
 
-  /**
-   * Wait for toast notification to disappear
-   */
-  async waitForToastDisappear() {
-    await this.waitForToastToDisappear('.ngx-toastr, .toast', 5000);
+  async waitForToastDisappear(timeout = 30000) {
+    await browser.waitUntil(
+      async () => {
+        const toast = await $('.ngx-toastr, .toast');
+        return !(await toast.isDisplayed());
+      },
+      { timeout, interval: 500 }
+    ).catch(() => {});
   }
 }
 

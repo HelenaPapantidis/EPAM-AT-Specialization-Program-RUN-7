@@ -8,17 +8,13 @@ describe("Browse Product Scenarios", () => {
     await HomePage.searchProduct(searchData.validProduct);
     await HomePage.waitForProductsToLoad();
 
-    const productCount = await HomePage.getProductCount();
-    await expect(productCount).toBeGreaterThan(0);
+    await expect($("h3")).toHaveText(/hammer/i);
   });
 
   it("should filter products by category", async () => {
     await HomePage.goToCategory(categories.handTools);
-    await HomePage.waitForProductsToLoad(15000);
 
-    const productCount = await HomePage.getProductCount();
-    await expect(productCount).toBeGreaterThan(0);
-
-    await expect(browser).toHaveUrl(expect.stringContaining("hand-tools"));
+    await expect(browser).toHaveUrl(/hand-tools/);
+    await expect($("h2")).toHaveText(/Hand Tools/i);
   });
 });

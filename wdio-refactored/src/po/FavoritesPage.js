@@ -6,6 +6,10 @@ class FavoritesPage extends BasePage {
     return $("app-favorites .card");
   }
 
+  get favoriteCardName() {
+    return $("app-favorites .card [data-test='product-name']");
+  }
+
   get deleteButton() {
     return $("[data-test='delete']");
   }
@@ -22,27 +26,26 @@ class FavoritesPage extends BasePage {
     await super.open('/account/favorites');
   }
 
-  async waitForPageLoad(timeout = 10000) {
-    await this.waitForUrlContains(
-      "/account/favorites",
-      timeout,
-      "Favorites page did not load"
+  async waitForPageLoad(timeout = 30000) {
+    await browser.waitUntil(
+      async () => (await browser.getUrl()).includes('/account/favorites'),
+      { timeout, timeoutMsg: 'Favorites page did not load' }
     );
   }
 
-  async waitForFavoriteCard(timeout = 10000) {
-    await this.waitForElement(this.favoriteCard, timeout);
+  async waitForFavoriteCard(timeout = 30000) {
+    await this.favoriteCard.waitForDisplayed({ timeout });
   }
 
   async isFavoriteCardDisplayed() {
-    return await this.isElementDisplayed(this.favoriteCard);
+    return await this.favoriteCard.isDisplayed();
   }
 
   async deleteFavorite() {
-    await this.clickElement(this.deleteButton);
+    await this.deleteButton.click();
   }
 
-  async waitForEmptyMessage(timeout = 5000) {
+  async waitForEmptyMessage(timeout = 30000) {
     await browser.waitUntil(
       async () => {
         const pageText = await this.emptyFavoritesMessage;

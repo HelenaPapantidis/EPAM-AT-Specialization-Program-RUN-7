@@ -1,4 +1,5 @@
 node_modules/
+package-lock.json
 
 # Environment variables
 .env
@@ -9,7 +10,9 @@ node_modules/
 allure-results/
 allure-report/
 reports/
+test-results/
 screenshots/
+*.xml
 
 # Logs
 *.log
@@ -18,3 +21,23 @@ npm-debug.log*
 # OS files
 .DS_Store
 Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+
+# Playwright
+playwright-report/
+test-results/
+
+# Misc
+*.tgz
+.cache/
+tmp/

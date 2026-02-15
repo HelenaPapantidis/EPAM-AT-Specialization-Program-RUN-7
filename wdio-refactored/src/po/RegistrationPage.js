@@ -51,21 +51,22 @@ class RegistrationPage extends BasePage {
   }
 
   async fillRegistrationForm(userData) {
-    await this.setInputValue(this.firstNameInput, userData.firstName);
-    await this.setInputValue(this.lastNameInput, userData.lastName);
-    await this.setInputValue(this.dobInput, userData.dob);
-    await this.setInputValue(this.streetInput, userData.street);
-    await this.setInputValue(this.postalCodeInput, userData.postalCode);
-    await this.setInputValue(this.cityInput, userData.city);
-    await this.setInputValue(this.stateInput, userData.state);
-    await this.selectByVisibleText(this.countrySelect, userData.country);
-    await this.setInputValue(this.phoneInput, userData.phone);
-    await this.setInputValue(this.emailInput, userData.email);
-    await this.setInputValue(this.passwordInput, userData.password);
+    await this.firstNameInput.setValue(userData.firstName);
+    await this.lastNameInput.setValue(userData.lastName);
+    await this.dobInput.setValue(userData.dob);
+    await this.streetInput.setValue(userData.street);
+    await this.postalCodeInput.setValue(userData.postalCode);
+    await this.cityInput.setValue(userData.city);
+    await this.stateInput.setValue(userData.state);
+    await this.countrySelect.selectByVisibleText(userData.country);
+    await this.phoneInput.setValue(userData.phone);
+    await this.emailInput.setValue(userData.email);
+    await this.passwordInput.setValue(userData.password);
   }
 
   async submitRegistration() {
-    await this.scrollAndClick(this.registerButton);
+    await this.registerButton.scrollIntoView();
+    await this.registerButton.click();
   }
 
   async register(userData) {

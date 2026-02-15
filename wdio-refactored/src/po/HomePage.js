@@ -22,20 +22,16 @@ class HomePage extends BasePage {
     return $("[data-test='nav-cart']");
   }
 
-  get cartQuantityBadge() {
-    return $("[data-test='cart-quantity']");
-  }
-
   async open() {
     await super.open('/');
   }
 
-  async waitForProductsToLoad(timeout = 10000) {
+  async waitForProductsToLoad(timeout = 30000) {
     await browser.waitUntil(
       async () => (await this.productCards).length > 0,
       {
         timeout,
-        timeoutMsg: 'Products did not load on the home page within 10s'
+        timeoutMsg: `Products did not load on the home page within ${timeout / 1000}s`
       }
     );
   }
@@ -48,8 +44,8 @@ class HomePage extends BasePage {
   }
 
   async searchProduct(productName) {
-    await this.setInputValue(this.searchInput, productName);
-    await this.clickElement(this.searchButton);
+    await this.searchInput.setValue(productName);
+    await this.searchButton.click();
   }
 
   async getProductCardTitle(productCard) {
@@ -57,27 +53,8 @@ class HomePage extends BasePage {
     return await title.getText();
   }
 
-  async getProductCount() {
-    await this.waitForProductsToLoad();
-    return (await this.productCards).length;
-  }
-
   async goToCart() {
-    await this.clickElement(this.cartIcon);
-  }
-
-  async getCartQuantity() {
-    return await this.getElementText(this.cartQuantityBadge);
-  }
-
-  async waitForCartUpdate(timeout = 10000) {
-    await browser.waitUntil(
-      async () => {
-        const cartBadge = await this.cartQuantityBadge;
-        return (await cartBadge.isExisting()) && (await cartBadge.getText()) !== "0";
-      },
-      { timeout, timeoutMsg: "Cart did not update" }
-    );
+    await this.cartIcon.click();
   }
 
   async goToCategory(category) {

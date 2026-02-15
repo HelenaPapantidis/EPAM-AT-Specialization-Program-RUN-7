@@ -12,13 +12,9 @@ describe("Product Details Feature", () => {
 
     await ProductDetailsPage.waitForPageLoad();
 
-    await expect(browser).toHaveUrl(expect.stringContaining("/product/"));
+    await expect(browser).toHaveUrl(/\/product\//);
 
-    const productName = await ProductDetailsPage.getProductName();
-    await expect(productName).toBe(cardProductName);
-
-    const addToCartBtn = await ProductDetailsPage.addToCartButton;
-    await expect(addToCartBtn).toExist();
-    await expect(addToCartBtn).toBeClickable();
+    await expect(ProductDetailsPage.productName).toHaveText(cardProductName);
+    await expect(ProductDetailsPage.addToCartButton).toBeClickable();
   });
 });

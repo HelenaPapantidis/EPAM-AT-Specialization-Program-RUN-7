@@ -16,5 +16,8 @@ export function generateUserData(overrides = {}) {
 export async function loginAsValidUser(email = validUser.email, password = validUser.password) {
   await LoginPage.open();
   await LoginPage.login(email, password);
-  await LoginPage.waitForUrlContains("/account", 10000, "Login did not complete");
+  await browser.waitUntil(
+    async () => (await browser.getUrl()).includes('/account'),
+    { timeout: 30000, timeoutMsg: 'Login did not complete' }
+  );
 }

@@ -1,5 +1,5 @@
 {
-  "name": "c",
+  "name": "wdio-refactored",
   "version": "1.0.0",
   "description": "WebdriverIO Test Automation Framework with Page Object Model",
   "type": "module",

@@ -1,8 +1,3 @@
-/**
- * Main Barrel Export
- * Centralized export of the entire TAF
- */
-
 // Page Objects
 export {
   BasePage,
@@ -20,10 +15,7 @@ export {
   validUser,
   testUserTemplate,
   searchData,
-  categories,
-  TIMEOUTS,
-  SELECTORS,
-  ERROR_MESSAGES
+  categories
 } from './data/index.js';
 
 // Helpers
