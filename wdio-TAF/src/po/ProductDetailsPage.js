@@ -1,7 +1,6 @@
-import BasePage from './BasePage.js';
+import BasePage from "./BasePage.js";
 
 class ProductDetailsPage extends BasePage {
-
   get productName() {
     return $("h1");
   }
@@ -15,44 +14,53 @@ class ProductDetailsPage extends BasePage {
   }
 
   get toast() {
-    return $(".ngx-toastr, .toast");
+    return $("div[role='alert'], .toast, .ngx-toastr");
   }
 
-  async waitForPageLoad(timeout = 30000) {
+  get cartQuantityBadge() {
+    return $("[data-test='cart-quantity']");
+  }
+
+  async waitForPageLoad(timeout = 60000) {
     await browser.waitUntil(
-      async () => (await browser.getUrl()).includes('/product/'),
-      { timeout, timeoutMsg: 'Product detail page did not load' }
+      async () => (await browser.getUrl()).includes("/product/"),
+      {
+        timeout,
+        interval: 500,
+        timeoutMsg: "Navigation to product detail page did not complete",
+      },
+    );
+
+    // Wait for ANY key element (simple check)
+    await browser.waitUntil(
+      async () => {
+        const cartBtn = await this.addToCartButton.isExisting();
+        const favBtn = await this.addToFavoritesButton.isExisting();
+        const title = await this.productName.isExisting();
+        return cartBtn || favBtn || title;
+      },
+      {
+        timeout,
+        interval: 500,
+        timeoutMsg:
+          "Product details did not render (missing expected controls)",
+      },
     );
   }
 
-  async getProductName() {
-    await this.productName.waitForDisplayed({ timeout: 15000 });
-    return await this.productName.getText();
-  }
-
   async addToCart() {
-    await this.addToCartButton.waitForClickable({ timeout: 30000 });
+    await this.addToCartButton.waitForExist({ timeout: 20000 });
+    await this.addToCartButton.scrollIntoView();
+    await this.addToCartButton.waitForClickable({ timeout: 20000 });
     await this.addToCartButton.click();
   }
 
   async addToFavorites() {
+    await this.addToFavoritesButton.waitForDisplayed({ timeout: 20000 });
     await this.addToFavoritesButton.scrollIntoView();
     await this.addToFavoritesButton.click();
   }
 
-  async waitForSuccessToast(timeout = 30000) {
-    await this.toast.waitForDisplayed({ timeout });
-  }
-
-  async waitForToastDisappear(timeout = 30000) {
-    await browser.waitUntil(
-      async () => {
-        const toast = await $('.ngx-toastr, .toast');
-        return !(await toast.isDisplayed());
-      },
-      { timeout, interval: 500 }
-    ).catch(() => {});
-  }
 }
 
 export default new ProductDetailsPage();
