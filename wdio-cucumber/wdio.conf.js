@@ -1,3 +1,9 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 export const config = {
     runner: 'local',
 
@@ -18,7 +24,7 @@ export const config = {
     reporters: ['spec', ['allure', { outputDir: 'allure-results' }]],
 
     cucumberOpts: {
-        require: ['./features/step-definitions/**/*.js'],
+        require: [path.join(__dirname, 'features', 'step-definitions', '*.js')],
         backtrace: false,
         dryRun: false,
         failFast: false,

@@ -3,7 +3,7 @@ import BasePage from './BasePage.js';
 class ProductDetailsPage extends BasePage {
 
   get productName() {
-    return $("h1");
+    return $("[data-test='product-name']");
   }
 
   get addToCartButton() {
@@ -19,7 +19,7 @@ class ProductDetailsPage extends BasePage {
   }
 
   async getProductName() {
-    await this.waitForElement(this.productName, 15000);
+    await this.waitForElement(this.productName, 30000);
     return await this.getElementText(this.productName);
   }
 

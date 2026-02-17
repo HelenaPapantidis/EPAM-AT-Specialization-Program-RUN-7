@@ -29,4 +29,6 @@ allure-report/
 screenshots/
 wdio-TAF/screenshots/
 wdio-TAF/test-results/
+wdio-cucumber/allure-results/
+wdio-cucumber/allure-report/
 wdio-logs/

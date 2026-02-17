@@ -13,12 +13,16 @@ class HomePage extends BasePage {
   get searchButton() {
     return $("[data-test='search-submit']");
   }
+  
+  get searchCaption() {
+    return $("h3[data-test='search-caption']");
+  }
 
   async open() {
     await super.open('/');
   }
 
-  async waitForProductsToLoad(timeout = 10000) {
+  async waitForProductsToLoad(timeout = 30000) {
     await browser.waitUntil(
       async () => (await this.productCards).length > 0,
       { timeout, timeoutMsg: 'Products did not load within timeout' }

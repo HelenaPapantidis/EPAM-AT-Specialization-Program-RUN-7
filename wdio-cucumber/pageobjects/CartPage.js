@@ -10,7 +10,7 @@ class CartPage extends BasePage {
     return $("input[type='number']");
   }
 
-  async waitForCartItemsToLoad(timeout = 10000) {
+  async waitForCartItemsToLoad(timeout = 30000) {
     await browser.waitUntil(
       async () => (await this.cartItems).length > 0,
       { timeout, timeoutMsg: 'Cart items did not load' }

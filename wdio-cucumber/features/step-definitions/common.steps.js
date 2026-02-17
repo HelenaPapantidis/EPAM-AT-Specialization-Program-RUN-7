@@ -18,7 +18,7 @@ Given('the user is registered and signed in', async () => {
   await LoginPage.login('customer@practicesoftwaretesting.com', 'welcome01');
   await browser.waitUntil(
     async () => (await browser.getUrl()).includes('/account'),
-    { timeout: 15000, timeoutMsg: 'Not redirected to account after login' }
+    { timeout: 30000, timeoutMsg: 'Not redirected to account after login' }
   );
 });
 
