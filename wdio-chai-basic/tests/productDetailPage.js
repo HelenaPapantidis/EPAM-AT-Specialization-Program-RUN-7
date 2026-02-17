@@ -2,23 +2,22 @@ import * as chai from "chai";
 chai.should();
 
 describe("Product Details Feature", () => {
-
   it("should display product details page with correct info", async () => {
     await browser.url("/");
 
-    await browser.waitUntil(
-      async () => (await $$("a.card")).length > 0,
-      { timeout: 20000, timeoutMsg: "Products did not load" }
-    );
+    await browser.waitUntil(async () => (await $$("a.card")).length > 0, {
+      timeout: 20000,
+      timeoutMsg: "Products did not load",
+    });
 
     const firstProduct = await $("a.card");
     const cardProductName = await firstProduct.$(".card-title").getText();
     await firstProduct.click();
 
-    await browser.waitUntil(
-      async () => (await browser.getUrl()).includes("/product/"),
-      { timeout: 15000, timeoutMsg: "Product detail page did not load" }
-    );
+    await browser.waitUntil(async () => (await browser.getUrl()).includes("/product/"), {
+      timeout: 15000,
+      timeoutMsg: "Product detail page did not load",
+    });
 
     const url = await browser.getUrl();
     url.should.include("/product/");
@@ -34,5 +33,4 @@ describe("Product Details Feature", () => {
     const isClickable = await addToCartBtn.isClickable();
     isClickable.should.be.true;
   });
-
 });

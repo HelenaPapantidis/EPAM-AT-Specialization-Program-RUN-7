@@ -8,7 +8,6 @@ export const generateUniqueEmail = () => {
   return `test_${timestamp}_${random}@example.com`;
 };
 
-
 export const generateRegistrationData = () => ({
   firstName: "Test",
   lastName: "User",
@@ -20,6 +19,5 @@ export const generateRegistrationData = () => ({
   country: "Serbia",
   phone: "0601234567",
   email: generateUniqueEmail(),
-  password: "passwordTest@1234"
+  password: "passwordTest@1234",
 });
-

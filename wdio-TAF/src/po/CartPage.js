@@ -1,4 +1,4 @@
-import BasePage from './BasePage.js';
+import BasePage from "./BasePage.js";
 
 class CartPage extends BasePage {
   get cartRows() {
@@ -6,7 +6,7 @@ class CartPage extends BasePage {
   }
 
   async open() {
-    await super.open('/checkout');
+    await super.open("/checkout");
   }
 }
 

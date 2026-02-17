@@ -1,6 +1,5 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
-
 
 import { defineConfig, devices } from "@playwright/test";
 
@@ -12,8 +11,8 @@ export default defineConfig({
   retries: 1,
   workers: 2,
   reporter: [
-    ["list"],  // Spec reporter for console output
-    ["html", { outputFolder: "playwright-report" }]  // HTML reporter
+    ["list"], // Spec reporter for console output
+    ["html", { outputFolder: "playwright-report" }], // HTML reporter
   ],
 
   use: {
@@ -21,7 +20,7 @@ export default defineConfig({
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
-    headless: process.env.HEADLESS !== 'false',
+    headless: process.env.HEADLESS !== "false",
     timeout: 80000,
     navigationTimeout: 30000,
     actionTimeout: 10000,

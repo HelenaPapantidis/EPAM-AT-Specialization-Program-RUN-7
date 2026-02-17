@@ -24,9 +24,7 @@ describe("Product details", () => {
 
         ProductDetailsPage.descriptionBox.should("be.visible");
 
-        ProductDetailsPage.addToCartButton
-          .should("be.visible")
-          .and("not.be.disabled");
+        ProductDetailsPage.addToCartButton.should("be.visible").and("not.be.disabled");
       });
   });
 });

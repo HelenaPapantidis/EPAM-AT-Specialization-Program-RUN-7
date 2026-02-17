@@ -1,7 +1,6 @@
-import { HomePage, ProductDetailsPage } from '../po/index.js';
+import { HomePage, ProductDetailsPage } from "../po/index.js";
 
 describe("Product Details Feature", () => {
-
   it("should display product details page with correct info", async () => {
     await HomePage.open();
     await HomePage.waitForProductsToLoad();

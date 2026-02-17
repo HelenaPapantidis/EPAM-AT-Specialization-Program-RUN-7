@@ -1,4 +1,4 @@
-import { LoginPage } from '../po/index.js';
+import { LoginPage } from "../po/index.js";
 
 export async function loginToAccount(email, password, { retries = 3, timeout = 20000 } = {}) {
   let lastError;
@@ -8,10 +8,10 @@ export async function loginToAccount(email, password, { retries = 3, timeout = 2
     await LoginPage.login(email, password);
 
     try {
-      await browser.waitUntil(
-        async () => (await browser.getUrl()).includes('/account'),
-        { timeout, interval: 500 }
-      );
+      await browser.waitUntil(async () => (await browser.getUrl()).includes("/account"), {
+        timeout,
+        interval: 500,
+      });
       return;
     } catch (err) {
       lastError = err;

@@ -1,14 +1,13 @@
-import { BasePage } from './BasePage.js';
+import { BasePage } from "./BasePage.js";
 
-export class LoginPage extends BasePage{
-  
+export class LoginPage extends BasePage {
   constructor(page) {
     super(page);
   }
 
-async open() {
-  await super.open("/auth/login");
-}
+  async open() {
+    await super.open("/auth/login");
+  }
 
   get emailInput() {
     return this.page.locator('[data-test="email"]');
@@ -22,7 +21,7 @@ async open() {
     return this.page.locator('[data-test="login-submit"]');
   }
 
-    async login(email, password) {
+  async login(email, password) {
     await this.emailInput.fill(email);
     await this.passwordInput.fill(password);
     await this.loginButton.click();

@@ -22,5 +22,5 @@ export const profileData = {
   phone: "9876543210",
   postalCode: "54321",
   city: "Los Angeles",
-  state: "California"
+  state: "California",
 };

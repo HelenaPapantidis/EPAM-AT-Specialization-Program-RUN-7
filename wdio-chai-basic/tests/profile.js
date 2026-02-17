@@ -3,16 +3,14 @@ import { expect } from "chai";
 describe("Profile Scenarios", () => {
   it("should update profile information", async () => {
     await browser.url("/auth/login");
-    await $("[data-test='email']").setValue(
-      "customer2@practicesoftwaretesting.com",
-    );
+    await $("[data-test='email']").setValue("customer2@practicesoftwaretesting.com");
     await $("[data-test='password']").setValue("welcome01");
     await $("[data-test='login-submit']").click();
 
-    await browser.waitUntil(
-      async () => (await browser.getUrl()).includes("/account"),
-      { timeout: 20000, timeoutMsg: "Login did not complete" },
-    );
+    await browser.waitUntil(async () => (await browser.getUrl()).includes("/account"), {
+      timeout: 20000,
+      timeoutMsg: "Login did not complete",
+    });
 
     await browser.url("/account/profile");
 
@@ -36,16 +34,14 @@ describe("Profile Scenarios", () => {
 
   it("should add product to favorites and remove from favorites", async () => {
     await browser.url("/auth/login");
-    await $("[data-test='email']").setValue(
-      "customer2@practicesoftwaretesting.com",
-    );
+    await $("[data-test='email']").setValue("customer2@practicesoftwaretesting.com");
     await $("[data-test='password']").setValue("welcome01");
     await $("[data-test='login-submit']").click();
 
-    await browser.waitUntil(
-      async () => (await browser.getUrl()).includes("/account"),
-      { timeout: 20000, timeoutMsg: "Login did not complete" },
-    );
+    await browser.waitUntil(async () => (await browser.getUrl()).includes("/account"), {
+      timeout: 20000,
+      timeoutMsg: "Login did not complete",
+    });
 
     await browser.url("/");
 
@@ -57,10 +53,10 @@ describe("Profile Scenarios", () => {
     const firstProduct = await $("a.card");
     await firstProduct.click();
 
-    await browser.waitUntil(
-      async () => (await browser.getUrl()).includes("/product/"),
-      { timeout: 15000, timeoutMsg: "Product page did not load" },
-    );
+    await browser.waitUntil(async () => (await browser.getUrl()).includes("/product/"), {
+      timeout: 15000,
+      timeoutMsg: "Product page did not load",
+    });
 
     const favoriteIcon = await $("[data-test='add-to-favorites']");
     await favoriteIcon.waitForDisplayed({ timeout: 15000 });
@@ -76,10 +72,10 @@ describe("Profile Scenarios", () => {
 
     await browser.url("/account/favorites");
 
-    await browser.waitUntil(
-      async () => (await browser.getUrl()).includes("/account/favorites"),
-      { timeout: 15000, timeoutMsg: "Favorites page did not load" },
-    );
+    await browser.waitUntil(async () => (await browser.getUrl()).includes("/account/favorites"), {
+      timeout: 15000,
+      timeoutMsg: "Favorites page did not load",
+    });
 
     const favoriteCard = await $("app-favorites .card");
     await favoriteCard.waitForDisplayed({ timeout: 15000 });

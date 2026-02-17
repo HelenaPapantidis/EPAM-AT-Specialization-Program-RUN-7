@@ -1,9 +1,8 @@
-import { LoginPage, RegistrationPage } from '../po/index.js';
-import { generateUserData, loginToAccount } from '../helpers/index.js';
-import { validUser } from '../data/index.js';
+import { LoginPage, RegistrationPage } from "../po/index.js";
+import { generateUserData, loginToAccount } from "../helpers/index.js";
+import { validUser } from "../data/index.js";
 
 describe("Auth Scenarios", () => {
-
   it("should register a new user", async () => {
     const userData = generateUserData();
 

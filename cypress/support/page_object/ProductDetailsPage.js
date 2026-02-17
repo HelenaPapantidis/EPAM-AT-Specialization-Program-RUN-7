@@ -4,7 +4,7 @@ class ProductDetailsPage {
   }
 
   get addToCartButton() {
-    return cy.get('#btn-add-to-cart');
+    return cy.get("#btn-add-to-cart");
   }
 
   get descriptionBox() {

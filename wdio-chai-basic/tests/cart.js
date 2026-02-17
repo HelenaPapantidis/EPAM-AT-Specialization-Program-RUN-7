@@ -12,10 +12,10 @@ describe("Shopping Cart", () => {
     const firstProduct = await $("a.card");
     await firstProduct.click();
 
-    await browser.waitUntil(
-      async () => (await browser.getUrl()).includes("/product/"),
-      { timeout: 15000, timeoutMsg: "Product detail page did not load" }
-    );
+    await browser.waitUntil(async () => (await browser.getUrl()).includes("/product/"), {
+      timeout: 15000,
+      timeoutMsg: "Product detail page did not load",
+    });
 
     const addToCartBtn = await $("[data-test='add-to-cart']");
     await addToCartBtn.waitForClickable({ timeout: 15000 });
@@ -24,11 +24,9 @@ describe("Shopping Cart", () => {
     await browser.waitUntil(
       async () => {
         const cartBadge = await $("[data-test='cart-quantity']");
-        return (
-          (await cartBadge.isExisting()) && (await cartBadge.getText()) !== "0"
-        );
+        return (await cartBadge.isExisting()) && (await cartBadge.getText()) !== "0";
       },
-      { timeout: 15000, timeoutMsg: "Cart did not update" },
+      { timeout: 15000, timeoutMsg: "Cart did not update" }
     );
 
     const toast = await $(".ngx-toastr, .toast");

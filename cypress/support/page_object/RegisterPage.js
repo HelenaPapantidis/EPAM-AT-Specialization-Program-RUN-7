@@ -1,5 +1,4 @@
 class RegisterPage {
-  
   get firstNameInput() {
     return cy.get('[data-test="first-name"]');
   }
@@ -49,12 +48,21 @@ class RegisterPage {
   }
 
   clickRegisterLinkFromLogin() {
-    cy.contains('a', 'Register your account').click();
+    cy.contains("a", "Register your account").click();
   }
 
   fillRegistrationForm({
-    firstName, lastName, dob, street, postcode,
-    city, state, country, phone, email, password
+    firstName,
+    lastName,
+    dob,
+    street,
+    postcode,
+    city,
+    state,
+    country,
+    phone,
+    email,
+    password,
   }) {
     this.firstNameInput.clear().type(firstName);
     this.lastNameInput.clear().type(lastName);

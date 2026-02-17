@@ -1,7 +1,6 @@
-import BasePage from './BasePage.js';
+import BasePage from "./BasePage.js";
 
 class HomePage extends BasePage {
-  
   get productCards() {
     return $$("a.card");
   }
@@ -23,17 +22,14 @@ class HomePage extends BasePage {
   }
 
   async open() {
-    await super.open('/');
+    await super.open("/");
   }
 
   async waitForProductsToLoad(timeout = 60000) {
-    await browser.waitUntil(
-      async () => (await this.productCards).length > 0,
-      {
-        timeout,
-        timeoutMsg: `Products did not load on the home page within ${timeout / 1000}s`
-      }
-    );
+    await browser.waitUntil(async () => (await this.productCards).length > 0, {
+      timeout,
+      timeoutMsg: `Products did not load on the home page within ${timeout / 1000}s`,
+    });
     const firstCard = (await this.productCards)[0];
     await firstCard.waitForDisplayed({ timeout: 20000 });
   }
@@ -44,10 +40,10 @@ class HomePage extends BasePage {
     await firstProduct.scrollIntoView();
     await firstProduct.waitForClickable({ timeout: 10000 });
     await firstProduct.click();
-    await browser.waitUntil(
-      async () => (await browser.getUrl()).includes('/product/'),
-      { timeout: 30000, timeoutMsg: 'Navigation to product detail page did not complete' }
-    );
+    await browser.waitUntil(async () => (await browser.getUrl()).includes("/product/"), {
+      timeout: 30000,
+      timeoutMsg: "Navigation to product detail page did not complete",
+    });
   }
 
   async searchProduct(productName) {
@@ -61,11 +57,11 @@ class HomePage extends BasePage {
   }
 
   async goToCart() {
-    await super.open('/checkout');
-    await browser.waitUntil(
-      async () => (await browser.getUrl()).includes('/checkout'),
-      { timeout: 30000, timeoutMsg: 'Navigation to cart page did not complete' }
-    );
+    await super.open("/checkout");
+    await browser.waitUntil(async () => (await browser.getUrl()).includes("/checkout"), {
+      timeout: 30000,
+      timeoutMsg: "Navigation to cart page did not complete",
+    });
   }
 
   get searchResultTitle() {

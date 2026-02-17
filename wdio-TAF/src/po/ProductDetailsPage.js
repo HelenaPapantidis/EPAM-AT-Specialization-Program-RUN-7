@@ -22,14 +22,11 @@ class ProductDetailsPage extends BasePage {
   }
 
   async waitForPageLoad(timeout = 60000) {
-    await browser.waitUntil(
-      async () => (await browser.getUrl()).includes("/product/"),
-      {
-        timeout,
-        interval: 500,
-        timeoutMsg: "Navigation to product detail page did not complete",
-      },
-    );
+    await browser.waitUntil(async () => (await browser.getUrl()).includes("/product/"), {
+      timeout,
+      interval: 500,
+      timeoutMsg: "Navigation to product detail page did not complete",
+    });
 
     // Wait for ANY key element (simple check)
     await browser.waitUntil(
@@ -42,9 +39,8 @@ class ProductDetailsPage extends BasePage {
       {
         timeout,
         interval: 500,
-        timeoutMsg:
-          "Product details did not render (missing expected controls)",
-      },
+        timeoutMsg: "Product details did not render (missing expected controls)",
+      }
     );
   }
 
@@ -60,7 +56,6 @@ class ProductDetailsPage extends BasePage {
     await this.addToFavoritesButton.scrollIntoView();
     await this.addToFavoritesButton.click();
   }
-
 }
 
 export default new ProductDetailsPage();
