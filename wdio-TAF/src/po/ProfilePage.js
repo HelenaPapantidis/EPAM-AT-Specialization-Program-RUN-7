@@ -10,14 +10,14 @@ class ProfilePage extends BasePage {
   get phoneInput() {
     return $("[data-test='phone']");
   }
-  get streetInput() {
-    return $("[data-test='street']");
-  }
   get postalCodeInput() {
     return $("[data-test='postal_code']");
   }
   get cityInput() {
     return $("[data-test='city']");
+  }
+  get stateInput() {
+    return $("[data-test='state']");
   }
   get updateProfileButton() {
     return $("[data-test='update-profile-submit']");
@@ -34,23 +34,27 @@ class ProfilePage extends BasePage {
     await this.firstNameInput.waitForDisplayed({ timeout });
   }
 
-  async updateProfile({ firstName, lastName, phone, street, postalCode, city }) {
+  async updateProfile({ firstName, lastName, phone, postalCode, city, state }) {
     await this.waitForPageLoad();
 
-    // Helper to clear and set value efficiently
-    const clearAndSet = async (element, value) => {
-      await element.click();
-      await browser.keys(['Control', 'a']);
-      await browser.keys(['Backspace']);
-      await element.setValue(value);
-    };
+    // Clear and set each form field
+    await this.firstNameInput.clearValue();
+    await this.firstNameInput.setValue(firstName);
 
-    if (firstName) await clearAndSet(this.firstNameInput, firstName);
-    if (lastName) await clearAndSet(this.lastNameInput, lastName);
-    if (phone) await clearAndSet(this.phoneInput, phone);
-    if (street) await clearAndSet(this.streetInput, street);
-    if (postalCode) await clearAndSet(this.postalCodeInput, postalCode);
-    if (city) await clearAndSet(this.cityInput, city);
+    await this.lastNameInput.clearValue();
+    await this.lastNameInput.setValue(lastName);
+
+    await this.phoneInput.clearValue();
+    await this.phoneInput.setValue(phone);
+
+    await this.postalCodeInput.clearValue();
+    await this.postalCodeInput.setValue(postalCode);
+
+    await this.cityInput.clearValue();
+    await this.cityInput.setValue(city);
+
+    await this.stateInput.clearValue();
+    await this.stateInput.setValue(state);
 
     await this.updateProfileButton.scrollIntoView();
     await this.updateProfileButton.waitForClickable({ timeout: 20000 });

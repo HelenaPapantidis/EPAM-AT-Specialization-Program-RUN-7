@@ -1,6 +1,6 @@
 class ProductDetailsPage {
   get productName() {
-    return cy.get('h1');
+    return cy.get('[data-test="product-name"]');
   }
 
   get addToCartButton() {

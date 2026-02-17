@@ -25,6 +25,11 @@ class LoginPage {
     this.passwordInput.clear().type(password);
     this.loginButton.click();
   }
+
+  verifyLoginSuccess() {
+    cy.url({ timeout: 15000 }).should('include', '/account');
+    this.pageHeading.should('contain.text', 'My account');
+  }
 }
 
 export default new LoginPage();

@@ -2,7 +2,7 @@ import BasePage from "./BasePage.js";
 
 class ProductDetailsPage extends BasePage {
   get productName() {
-    return $("h1");
+    return $('[data-test="product-name"]');
   }
 
   get addToCartButton() {

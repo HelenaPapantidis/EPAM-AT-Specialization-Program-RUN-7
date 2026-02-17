@@ -1,14 +1,12 @@
 import ProfilePage from "../support/page_object/ProfilePage";
-import LoginPage from "../support/page_object/LoginPage";
 
 describe("User profile", () => {
   it("Update profile information", () => {
+    cy.login(Cypress.env("USER_EMAIL"), Cypress.env("USER_PASSWORD"));
 
-    LoginPage.goToLogin();
-    LoginPage.login(Cypress.env("USER_EMAIL"), Cypress.env("USER_PASSWORD"));
-    cy.goToProfile();
+    cy.visit("/account/profile");
+
     cy.url().should("include", "/profile");
-    
 
     // Load profile update data from fixture
     cy.fixture("newProfileData").then((data) => {
