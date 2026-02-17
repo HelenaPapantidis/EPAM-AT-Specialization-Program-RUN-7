@@ -1,0 +1,10 @@
+{
+  "profileUpdateData": {
+    "firstName": "NewName",
+    "lastName": "NewLastName",
+    "phone": "123456789",
+    "postalCode": "11000",
+    "city": "Belgrade",
+    "state": "Serbia"
+  }
+}
