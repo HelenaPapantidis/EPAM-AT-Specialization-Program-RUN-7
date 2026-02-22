@@ -2,7 +2,7 @@ import { test, expect } from "./fixtures";
 
 test.describe("Shopping Cart Scenarios", () => {
 
-  test.only("User can add a product to the basket", async ({ homePage, productPage, page }) => {
+  test("User can add a product to the basket", async ({ homePage, productPage, page }) => {
 
     await test.step("User navigates to homepage and waits for products API", async () => {
       const responsePromise = page.waitForResponse(
