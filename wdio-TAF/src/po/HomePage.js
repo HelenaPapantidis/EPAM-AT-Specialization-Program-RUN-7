@@ -1,7 +1,6 @@
-import BasePage from './BasePage.js';
+import BasePage from "./BasePage.js";
 
 class HomePage extends BasePage {
-  
   get productCards() {
     return $$("a.card");
   }
@@ -23,7 +22,7 @@ class HomePage extends BasePage {
   }
 
   async open() {
-    await super.open('/');
+    await super.open("/");
   }
 
   async waitForProductsToLoad(timeout = 60000) {

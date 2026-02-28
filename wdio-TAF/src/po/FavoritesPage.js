@@ -1,4 +1,4 @@
-import BasePage from './BasePage.js';
+import BasePage from "./BasePage.js";
 
 class FavoritesPage extends BasePage {
   
@@ -27,14 +27,14 @@ class FavoritesPage extends BasePage {
   }
 
   async open() {
-    await super.open('/account/favorites');
+    await super.open("/account/favorites");
   }
 
   async waitForPageLoad(timeout = 30000) {
-    await browser.waitUntil(
-      async () => (await browser.getUrl()).includes('/account/favorites'),
-      { timeout, timeoutMsg: 'Favorites page did not load' }
-    );
+    await browser.waitUntil(async () => (await browser.getUrl()).includes("/account/favorites"), {
+      timeout,
+      timeoutMsg: "Favorites page did not load",
+    });
   }
 
   async waitForAnyFavorite(timeout = 60000) {

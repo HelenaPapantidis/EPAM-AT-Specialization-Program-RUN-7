@@ -1,7 +1,6 @@
-import BasePage from './BasePage.js';
+import BasePage from "./BasePage.js";
 
 class RegistrationPage extends BasePage {
-  
   get firstNameInput() {
     return $("[data-test='first-name']");
   }

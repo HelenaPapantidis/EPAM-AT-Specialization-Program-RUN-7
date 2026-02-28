@@ -1,12 +1,6 @@
 import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const projectRoot = path.resolve(__dirname, '..', '..');
-
 dotenv.config();
 
 export const config = {
@@ -62,39 +56,39 @@ export const config = {
         }
     }],
 
-    //
-    // ===================
-    // Test Configurations
-    // ===================
-    logLevel: 'error',
-    
-    bail: 0,
-    
-    baseUrl: process.env.BASE_URL || "https://practicesoftwaretesting.com",
-    
-    waitforTimeout: 30000,
-    
-    connectionRetryTimeout: 120000,
-    
-    connectionRetryCount: 2,
-    
-    framework: 'mocha',
-    
-    reporters: [
-        'spec',
-        [
-            '@rpii/wdio-html-reporter',
-            {
-                debug: false,
-                outputDir: path.join(projectRoot, 'wdio-html-report'),
-                filename: 'report.html',
-                reportTitle: 'WDIO Test Report',
-                showInBrowser: false,
-                collapseTests: false,
-                useOnAfterCommandForScreenshot: false
-            }
-        ]
+  //
+  // ===================
+  // Test Configurations
+  // ===================
+  logLevel: "error",
+
+  bail: 0,
+
+  baseUrl: process.env.BASE_URL || "https://practicesoftwaretesting.com",
+
+  waitforTimeout: 30000,
+
+  connectionRetryTimeout: 120000,
+
+  connectionRetryCount: 2,
+
+  framework: "mocha",
+
+  reporters: [
+    "spec",
+    [
+      "@rpii/wdio-html-reporter",
+      {
+        debug: false,
+        outputDir: path.join(projectRoot, "wdio-html-report"),
+        filename: "report.html",
+        reportTitle: "WDIO Test Report",
+        showInBrowser: false,
+        collapseTests: false,
+        useOnAfterCommandForScreenshot: false,
+      },
     ],
+  ],
 
     mochaOpts: {
         ui: 'bdd',
@@ -110,17 +104,17 @@ export const config = {
      */
     afterTest: async function (test, context, { error, passed }) {
         if (!passed) {
-            const screenshotDir = path.join(projectRoot, 'screenshots');
+            const screenshotDir = path.resolve('wdio-TAF', 'screenshots');
             if (!fs.existsSync(screenshotDir)) {
                 fs.mkdirSync(screenshotDir, { recursive: true });
             }
 
-            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-            const testName = test.title.replace(/\s+/g, '_');
-            const filePath = path.join(screenshotDir, `${testName}_${timestamp}.png`);
+      const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+      const testName = test.title.replace(/\s+/g, "_");
+      const filePath = path.join(screenshotDir, `${testName}_${timestamp}.png`);
 
-            await browser.saveScreenshot(filePath);
-            console.log(`\n📸 Screenshot saved: ${filePath}`);
-        }
-    },
-}
+      await browser.saveScreenshot(filePath);
+      console.log(`\n📸 Screenshot saved: ${filePath}`);
+    }
+  },
+};

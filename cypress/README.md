@@ -5,11 +5,13 @@ Cypress tests with Page Object Model for Practice Software Testing application.
 ## Setup
 
 1. Install dependencies:
+
 ```bash
 npm install
 ```
 
 2. Create `.env` file based on `.env.example`:
+
 ```bash
 cp .env.example .env
 ```
@@ -17,6 +19,7 @@ cp .env.example .env
 3. Update `.env` with your test credentials
 
 ## Run Tests
+
 ```bash
 # Open Cypress UI
 npm run test:open
@@ -39,6 +42,7 @@ npm run test:edge
 - ✅ Profile update
 
 ## Project Structure
+
 ```
 cypress/
 ├── e2e/              # Test files

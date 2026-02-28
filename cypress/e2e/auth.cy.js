@@ -11,7 +11,7 @@ describe("Login and registration", () => {
       RegisterPage.fillRegistrationForm(userData);
       RegisterPage.clickRegisterButton();
 
-      cy.url().should('include', 'auth/login');
+      cy.url().should("include", "auth/login");
     });
   });
 

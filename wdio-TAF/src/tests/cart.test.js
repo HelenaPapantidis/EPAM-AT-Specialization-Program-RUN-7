@@ -1,4 +1,4 @@
-import { HomePage, ProductDetailsPage, CartPage } from '../po/index.js';
+import { HomePage, ProductDetailsPage, CartPage } from "../po/index.js";
 
 describe("Shopping Cart", () => {
 
@@ -7,10 +7,7 @@ describe("Shopping Cart", () => {
     await HomePage.clickFirstProduct();
     await ProductDetailsPage.waitForPageLoad();
     await ProductDetailsPage.addToCart();
-    
-    // Wait for cart quantity badge to update (indicates item added)
-    await ProductDetailsPage.cartQuantityBadge.waitForDisplayed({ timeout: 15000 });
-    
+    await expect(ProductDetailsPage.toast).toBeDisplayed({ timeout: 15000 });
     await CartPage.open();
     await expect(browser).toHaveUrl(/checkout/);
     const rows = await CartPage.cartRows;

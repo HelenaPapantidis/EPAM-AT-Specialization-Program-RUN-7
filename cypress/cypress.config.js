@@ -1,16 +1,16 @@
 const { defineConfig } = require("cypress");
 const path = require("path");
-require("dotenv").config({ path: path.resolve(__dirname, '..', '.env') });
+require("dotenv").config({ path: path.resolve(__dirname, "..", ".env") });
 
 module.exports = defineConfig({
   e2e: {
     allowCypressEnv: true,
-    reporter: 'cypress-mochawesome-reporter',
+    reporter: "cypress-mochawesome-reporter",
     reporterOptions: {
-      reportDir: 'cypress/mochawesome-report',
+      reportDir: "cypress/mochawesome-report",
       overwrite: false,
       html: true,
-      json: true
+      json: true,
     },
     baseUrl: process.env.BASE_URL || "https://practicesoftwaretesting.com/",
 
@@ -32,7 +32,7 @@ module.exports = defineConfig({
     },
 
     setupNodeEvents(on, config) {
-      require('cypress-mochawesome-reporter/plugin')(on);
+      require("cypress-mochawesome-reporter/plugin")(on);
       return config;
     },
   },

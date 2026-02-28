@@ -1,9 +1,7 @@
 import { test, expect } from "./fixtures";
 
-
 test.describe("Product Search Scenarios", () => {
   test("User can search for a product and see results", async ({ homePage }) => {
-   
     const searchTerm = "Hammer";
 
     await test.step("User navigates to homepage", async () => {
@@ -18,7 +16,5 @@ test.describe("Product Search Scenarios", () => {
     await test.step("Verify search heading matches search term", async () => {
       await expect(homePage.getSearchHeading(searchTerm)).toBeVisible();
     });
-
- 
   });
 });

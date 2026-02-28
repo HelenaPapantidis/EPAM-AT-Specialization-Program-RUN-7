@@ -22,5 +22,5 @@ export const generateUniqueUser = () => ({
 
 export const validCredentials = {
   email: process.env.TEST_USER_EMAIL,
-  password: process.env.TEST_USER_PASSWORD
+  password: process.env.TEST_USER_PASSWORD,
 };

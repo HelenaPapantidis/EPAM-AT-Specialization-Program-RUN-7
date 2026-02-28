@@ -4,6 +4,10 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test:api": "jest ./api",
     "test:cypress": "cypress run --config-file cypress/cypress.config.js",
     "test:cypress:chrome": "cypress run --browser chrome --config-file cypress/cypress.config.js",
@@ -21,6 +25,7 @@
     "test:all": "npm run test:api && npm run test:cypress && npm run test:playwright && npm run test:wdio:basic && npm run test:wdio:taf"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.57.0",
     "@rpii/wdio-html-reporter": "^7.7.1",
     "@rpii/wdio-report-events": "^8.0.2",
@@ -33,7 +38,11 @@
     "cypress": "^15.9.0",
     "cypress-mochawesome-reporter": "^3.8.4",
     "dotenv": "^16.0.0",
+    "eslint": "^10.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
     "jest": "^30.2.0",
+    "prettier": "^3.8.1",
     "wdio-html-reporter": "^1.0.2"
   }
 }

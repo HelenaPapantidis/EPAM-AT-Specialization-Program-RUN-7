@@ -1,6 +1,5 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
-
 
 import { defineConfig, devices } from "@playwright/test";
 
@@ -12,8 +11,8 @@ export default defineConfig({
   retries: 1,
   workers: 2,
   reporter: [
-    ["list"],  // Spec reporter for console output
-    ["html", { outputFolder: "playwright-report" }]  // HTML reporter
+    ["list"], // Spec reporter for console output
+    ["html", { outputFolder: "playwright-report" }], // HTML reporter
   ],
 
   use: {

@@ -20,7 +20,7 @@ export const profileData = {
   firstName: "Jane",
   lastName: "Smith",
   phone: "9876543210",
+  street: "456 Oak Ave",
   postalCode: "54321",
-  city: "Los Angeles",
-  state: "California"
+  city: "Los Angeles"
 };

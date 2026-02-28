@@ -1,5 +1,4 @@
 class LoginPage {
-  
   get emailInput() {
     return cy.get('[data-test="email"]');
   }
@@ -13,11 +12,11 @@ class LoginPage {
   }
 
   get pageHeading() {
-    return cy.get('h1');
+    return cy.get("h1");
   }
 
   goToLogin() {
-    cy.visit('auth/login');
+    cy.visit("auth/login");
   }
 
   login(email, password) {
@@ -27,8 +26,8 @@ class LoginPage {
   }
 
   verifyLoginSuccess() {
-    cy.url({ timeout: 15000 }).should('include', '/account');
-    this.pageHeading.should('contain.text', 'My account');
+    cy.url({ timeout: 15000 }).should("include", "/account");
+    this.pageHeading.should("contain.text", "My account");
   }
 }
 

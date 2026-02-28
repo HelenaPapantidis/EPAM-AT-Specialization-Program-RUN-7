@@ -13,10 +13,7 @@ describe("User profile", () => {
       // And the user updates profile fields
       ProfilePage.updateProfile(data.profileUpdateData);
 
-      ProfilePage.successMessageText.should(
-        "contain",
-        "Your profile is successfully updated!",
-      );
+      ProfilePage.successMessageText.should("contain", "Your profile is successfully updated!");
     });
   });
 });

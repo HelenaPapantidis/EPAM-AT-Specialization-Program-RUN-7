@@ -4,7 +4,7 @@ class AccountPage {
   }
 
   clickProfileLink() {
-    this.profileLink.should('be.visible').click();
+    this.profileLink.should("be.visible").click();
   }
 }
 
