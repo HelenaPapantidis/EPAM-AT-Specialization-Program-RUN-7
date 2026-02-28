@@ -8,6 +8,6 @@ export function generateUserData(overrides = {}) {
   return {
     ...testUserTemplate,
     email: generateRandomEmail(),
-    ...overrides
+    ...overrides,
   };
 }

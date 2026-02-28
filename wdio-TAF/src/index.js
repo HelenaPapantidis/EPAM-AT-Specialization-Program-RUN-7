@@ -15,12 +15,7 @@ export {
 
 
 // Test Data
-export {
-  validUser,
-  testUserTemplate,
-  searchData,
-  categories
-} from './data/index.js';
+export { validUser, testUserTemplate, searchData, categories } from "./data/index.js";
 
 // Helpers
 export {

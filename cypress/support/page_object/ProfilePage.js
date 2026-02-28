@@ -42,7 +42,7 @@ class ProfilePage {
   }
 
   get successMessageText() {
-    return this.successMessage.invoke('text');
+    return this.successMessage.invoke("text");
   }
 }
 

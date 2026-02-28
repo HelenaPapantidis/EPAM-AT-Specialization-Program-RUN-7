@@ -1,7 +1,6 @@
-import BasePage from './BasePage.js';
+import BasePage from "./BasePage.js";
 
 class LoginPage extends BasePage {
-  
   get emailInput() {
     return $("[data-test='email']");
   }
@@ -19,7 +18,7 @@ class LoginPage extends BasePage {
   }
 
   async open() {
-    await super.open('/auth/login');
+    await super.open("/auth/login");
   }
 
   async login(email, password) {

@@ -1,4 +1,4 @@
-import { HomePage, ProductDetailsPage, CartPage } from '../po/index.js';
+import { HomePage, ProductDetailsPage, CartPage } from "../po/index.js";
 
 describe("Shopping Cart", () => {
 

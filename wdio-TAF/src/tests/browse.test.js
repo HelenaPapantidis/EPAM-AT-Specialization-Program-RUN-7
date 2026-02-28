@@ -1,8 +1,7 @@
-import { HomePage } from '../po/index.js';
-import { searchData, categories } from '../data/index.js';
+import { HomePage } from "../po/index.js";
+import { searchData, categories } from "../data/index.js";
 
 describe("Browse Product Scenarios", () => {
-
   it("should search for an exact product by name", async () => {
     await HomePage.open();
     await HomePage.searchProduct(searchData.validProduct);

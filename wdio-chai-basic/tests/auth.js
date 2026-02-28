@@ -1,7 +1,6 @@
 import { assert } from "chai";
 
 describe("Auth Scenarios", () => {
-
   it("should register a new user", async () => {
     await browser.url("/auth/login");
     await $("[data-test='register-link']").click();
@@ -24,13 +23,16 @@ describe("Auth Scenarios", () => {
     await registerBtn.waitForDisplayed({ timeout: 15000 });
     await registerBtn.click();
 
-    await browser.waitUntil(async () => {
-      const currentUrl = await browser.getUrl();
-      return currentUrl.includes("/auth") || currentUrl.includes("/account");
-    }, {
-      timeout: 20000,
-      timeoutMsg: 'Registration did not complete in time'
-    });
+    await browser.waitUntil(
+      async () => {
+        const currentUrl = await browser.getUrl();
+        return currentUrl.includes("/auth") || currentUrl.includes("/account");
+      },
+      {
+        timeout: 20000,
+        timeoutMsg: "Registration did not complete in time",
+      }
+    );
 
     const url = await browser.getUrl();
     assert.match(url, /\/(auth|account)/, "URL should contain /auth or /account");
@@ -46,13 +48,12 @@ describe("Auth Scenarios", () => {
     await loginBtn.waitForClickable({ timeout: 15000 });
     await loginBtn.click();
 
-    await browser.waitUntil(
-      async () => (await browser.getUrl()).includes("/account"),
-      { timeout: 20000, timeoutMsg: "Did not redirect to account page after login" }
-    );
+    await browser.waitUntil(async () => (await browser.getUrl()).includes("/account"), {
+      timeout: 20000,
+      timeoutMsg: "Did not redirect to account page after login",
+    });
 
     const url = await browser.getUrl();
     assert.include(url, "/account", "URL should contain /account after login");
   });
-
 });

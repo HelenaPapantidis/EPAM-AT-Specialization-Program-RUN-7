@@ -42,17 +42,20 @@ wdio-refactored/
 ## Key Features
 
 ### Page Object Model (POM)
+
 - Each page has its own class encapsulating selectors and actions
 - Easy maintenance and readable tests
 - Code reusability
 
 ### Layered Architecture
+
 - **Config Layer**: Framework configuration and constants
 - **Data Layer**: Test data and user credentials
 - **Business Layer (PO)**: Page Objects with application-specific logic
 - **Tests Layer**: Test specifications
 
 ### Design Principles
+
 - **DRY**: No code duplication, barrel exports for imports
 - **KISS**: Simple, readable code
 - **YAGNI**: Only necessary functionality implemented
@@ -81,6 +84,7 @@ npm run test:profile
 ## Environment Variables
 
 Create a `.env` file with:
+
 ```
 TEST_USER_EMAIL=your-email@example.com
 TEST_USER_PASSWORD=your-password
@@ -89,6 +93,7 @@ TEST_USER_PASSWORD=your-password
 ## CI/CD
 
 Jenkins pipeline is configured in `Jenkinsfile` with:
+
 - Parallel test execution
 - Screenshot archiving on failure
 - Environment credentials management

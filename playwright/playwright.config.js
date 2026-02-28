@@ -1,16 +1,19 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
-
 
 import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "src/tests",
+  outputDir: "test-results",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: 1,
   workers: 2,
-  reporter: [["html"]],
+  reporter: [
+    ["list"], // Spec reporter for console output
+    ["html", { outputFolder: "playwright-report" }], // HTML reporter
+  ],
 
   use: {
     baseURL: "https://practicesoftwaretesting.com/",

@@ -15,6 +15,7 @@ test.describe("Shopping Cart Scenarios", () => {
       await responsePromise;
     });
 
+
     await test.step("User opens first product and waits for product API", async () => {
       const responsePromise = page.waitForResponse(
         resp => resp.url().includes("/products/") &&
@@ -62,11 +63,9 @@ test.describe("Shopping Cart Scenarios", () => {
     });
 
     await test.step("Verify product appears in cart", async () => {
-      await expect(
-        productPage.getProductInCart("Combination Pliers")
-      ).toBeVisible({ timeout: 20000 });
+      await expect(productPage.getProductInCart("Combination Pliers")).toBeVisible({
+        timeout: 20000,
+      });
     });
-
   });
-
 });

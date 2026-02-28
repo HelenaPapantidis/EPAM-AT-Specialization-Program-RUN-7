@@ -5,17 +5,17 @@ describe("Product details", () => {
   it("View product details page", () => {
     cy.visit("/");
 
-    HomePage.getProductTitleElements()
+    HomePage.productTitleElements
       .first()
       .invoke("text")
       .then((productName) => {
         HomePage.clickFirstProduct();
 
-        cy.get("h1", { timeout: 20000 }).should("be.visible");
+        cy.get('[data-test="product-name"]', { timeout: 30000 }).should("be.visible");
 
         cy.url().should("include", "/product/");
 
-        ProductDetailsPage.getProductName()
+        ProductDetailsPage.productName
           .should("be.visible")
           .invoke("text")
           .then((h1Text) => {
@@ -24,9 +24,7 @@ describe("Product details", () => {
 
         ProductDetailsPage.descriptionBox.should("be.visible");
 
-        ProductDetailsPage.addToCartButton
-          .should("be.visible")
-          .and("not.be.disabled");
+        ProductDetailsPage.addToCartButton.should("be.visible").and("not.be.disabled");
       });
   });
 });

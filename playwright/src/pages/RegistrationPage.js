@@ -1,7 +1,6 @@
-import { BasePage } from './BasePage.js';
+import { BasePage } from "./BasePage.js";
 
 export class RegistrationPage extends BasePage {
-  
   constructor(page) {
     super(page);
   }
@@ -38,8 +37,8 @@ export class RegistrationPage extends BasePage {
   }
 
   async open() {
-  await super.open("/auth/register");
-}
+    await super.open("/auth/register");
+  }
 
   async register(user) {
     await this.firstName.fill(user.firstName);

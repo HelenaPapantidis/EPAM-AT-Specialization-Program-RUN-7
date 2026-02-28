@@ -34,7 +34,7 @@ class ProfilePage extends BasePage {
     await this.firstNameInput.waitForDisplayed({ timeout });
   }
 
-  async updateProfile({ firstName, lastName, phone, street, postalCode, city }) {
+  async updateProfile({ firstName, lastName, phone, postalCode, city, state }) {
     await this.waitForPageLoad();
 
     // Helper to clear and set value efficiently
