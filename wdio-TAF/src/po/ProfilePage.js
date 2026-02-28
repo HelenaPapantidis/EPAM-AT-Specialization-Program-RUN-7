@@ -46,11 +46,11 @@ class ProfilePage extends BasePage {
     };
 
     if (firstName) await clearAndSet(this.firstNameInput, firstName);
-    if (lastName) await clearAndSet(this.lastNameInput, lastName);
-    if (phone) await clearAndSet(this.phoneInput, phone);
     if (street) await clearAndSet(this.streetInput, street);
     if (postalCode) await clearAndSet(this.postalCodeInput, postalCode);
     if (city) await clearAndSet(this.cityInput, city);
+    if (lastName) await clearAndSet(this.lastNameInput, lastName);
+    if (phone) await clearAndSet(this.phoneInput, phone);
 
     await this.updateProfileButton.scrollIntoView();
     await this.updateProfileButton.waitForClickable({ timeout: 20000 });
