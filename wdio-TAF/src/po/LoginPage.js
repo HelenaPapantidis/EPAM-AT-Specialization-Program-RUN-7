@@ -23,8 +23,10 @@ class LoginPage extends BasePage {
   }
 
   async login(email, password) {
+    await this.emailInput.waitForDisplayed({ timeout: 15000 });
     await this.emailInput.setValue(email);
     await this.passwordInput.setValue(password);
+    await this.loginButton.waitForClickable({ timeout: 10000 });
     await this.loginButton.click();
   }
 

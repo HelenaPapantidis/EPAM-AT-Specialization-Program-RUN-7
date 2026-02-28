@@ -1,3 +1,13 @@
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const projectRoot = path.resolve(__dirname, '..');
+
+dotenv.config({ path: path.join(projectRoot, '.env') });
+
 export const config = {
     //
     // ====================
@@ -53,6 +63,7 @@ export const config = {
         browserName: 'chrome',
         'goog:chromeOptions': {
             args: [
+                ...(process.env.HEADLESS === 'true' ? ['--headless=new'] : []),
                 '--disable-gpu',
                 '--disable-dev-shm-usage',
                 '--disable-background-networking',

@@ -1,6 +1,6 @@
 export const validUser = {
   email: process.env.TEST_USER_EMAIL,
-  password: process.env.TEST_USER_PASSWORD
+  password: process.env.TEST_USER_PASSWORD,
 };
 
 export const testUserTemplate = {
@@ -13,14 +13,14 @@ export const testUserTemplate = {
   state: "Minnesota",
   country: "Serbia",
   phone: "1234567890",
-  password: "PassForTest@1234"
+  password: "PassForTest@1234",
 };
 
 export const profileData = {
-  firstName: "NewName",
-  lastName: "TestLastName",
-  phone: "1234567890",
-  street: "123 Test Street",
-  postalCode: "12345",
-  city: "TestCity"
+  firstName: "Jane",
+  lastName: "Smith",
+  phone: "9876543210",
+  street: "456 Oak Ave",
+  postalCode: "54321",
+  city: "Los Angeles"
 };

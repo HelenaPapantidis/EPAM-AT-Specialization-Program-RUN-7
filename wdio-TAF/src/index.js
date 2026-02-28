@@ -5,10 +5,14 @@ export {
   RegistrationPage,
   HomePage,
   ProfilePage,
-  CartPage,
   FavoritesPage,
-  ProductDetailsPage
+  ProductDetailsPage,
+  CartPage
 } from './po/index.js';
+
+
+
+
 
 // Test Data
 export {
@@ -21,6 +25,6 @@ export {
 // Helpers
 export {
   generateRandomEmail,
-  generateUserData,
-  loginAsValidUser
+  generateUserData
 } from './helpers/index.js';
+

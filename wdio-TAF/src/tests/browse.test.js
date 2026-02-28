@@ -8,13 +8,13 @@ describe("Browse Product Scenarios", () => {
     await HomePage.searchProduct(searchData.validProduct);
     await HomePage.waitForProductsToLoad();
 
-    await expect($("h3")).toHaveText(/hammer/i);
+    await expect(HomePage.searchResultTitle).toHaveText(/hammer/i);
   });
 
   it("should filter products by category", async () => {
     await HomePage.goToCategory(categories.handTools);
 
     await expect(browser).toHaveUrl(/hand-tools/);
-    await expect($("h2")).toHaveText(/Hand Tools/i);
+    await expect(HomePage.categoryTitle).toHaveText(/Hand Tools/i);
   });
 });

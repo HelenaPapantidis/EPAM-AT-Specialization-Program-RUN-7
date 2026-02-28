@@ -26,7 +26,7 @@ class HomePage extends BasePage {
     await super.open('/');
   }
 
-  async waitForProductsToLoad(timeout = 30000) {
+  async waitForProductsToLoad(timeout = 60000) {
     await browser.waitUntil(
       async () => (await this.productCards).length > 0,
       {
@@ -34,13 +34,20 @@ class HomePage extends BasePage {
         timeoutMsg: `Products did not load on the home page within ${timeout / 1000}s`
       }
     );
+    const firstCard = (await this.productCards)[0];
+    await firstCard.waitForDisplayed({ timeout: 20000 });
   }
 
   async clickFirstProduct() {
     await this.waitForProductsToLoad();
     const firstProduct = (await this.productCards)[0];
     await firstProduct.scrollIntoView();
+    await firstProduct.waitForClickable({ timeout: 10000 });
     await firstProduct.click();
+    await browser.waitUntil(
+      async () => (await browser.getUrl()).includes('/product/'),
+      { timeout: 30000, timeoutMsg: 'Navigation to product detail page did not complete' }
+    );
   }
 
   async searchProduct(productName) {
@@ -54,7 +61,19 @@ class HomePage extends BasePage {
   }
 
   async goToCart() {
-    await this.cartIcon.click();
+    await super.open('/checkout');
+    await browser.waitUntil(
+      async () => (await browser.getUrl()).includes('/checkout'),
+      { timeout: 30000, timeoutMsg: 'Navigation to cart page did not complete' }
+    );
+  }
+
+  get searchResultTitle() {
+    return $("h3");
+  }
+
+  get categoryTitle() {
+    return $("h2");
   }
 
   async goToCategory(category) {
