@@ -5,22 +5,21 @@ export {
   RegistrationPage,
   HomePage,
   ProfilePage,
-  CartPage,
   FavoritesPage,
-  ProductDetailsPage
+  ProductDetailsPage,
+  CartPage
 } from './po/index.js';
 
+
+
+
+
 // Test Data
-export {
-  validUser,
-  testUserTemplate,
-  searchData,
-  categories
-} from './data/index.js';
+export { validUser, testUserTemplate, searchData, categories } from "./data/index.js";
 
 // Helpers
 export {
   generateRandomEmail,
-  generateUserData,
-  loginAsValidUser
+  generateUserData
 } from './helpers/index.js';
+

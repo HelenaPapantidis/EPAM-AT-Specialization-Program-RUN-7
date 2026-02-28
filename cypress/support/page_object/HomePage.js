@@ -1,11 +1,10 @@
 class HomePage {
-  
   get productItems() {
-    return cy.get('a.card');
+    return cy.get("a.card");
   }
 
   get productTitleElements() {
-    return cy.get('a.card .card-title');
+    return cy.get("a.card .card-title");
   }
 
   get searchInput() {
@@ -17,7 +16,7 @@ class HomePage {
   }
 
   get categoriesMenu() {
-    return cy.get('[data-cy=categories-menu]');
+    return cy.get("[data-cy=categories-menu]");
   }
 
   get searchCaption() {
@@ -38,7 +37,7 @@ class HomePage {
   }
 
   selectHandToolsCategory() {
-    cy.get('[data-cy=category-hand-tools]').click();
+    cy.get("[data-cy=category-hand-tools]").click();
   }
 }
 

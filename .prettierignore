@@ -1,0 +1,12 @@
+node_modules/
+mochawesome-report/
+playwright-report/
+test-results/
+wdio-html-report/
+cypress/mochawesome-report/
+playwright/playwright-report/
+playwright/test-results/
+wdio-TAF/wdio-html-report/
+wdio-TAF/screenshots/
+wdio-chai-basic/wdio-html-report/
+package-lock.json

@@ -10,20 +10,20 @@ export class ProductGridComponent extends BasePage {
     return this.page.locator('a[href^="/product/"]');
   }
 
- async waitUntilLoaded() {
-  try {
-    await expect(this.products.first()).toBeVisible({
-      timeout: 20000
-    });
-  } catch (error) {
-    console.warn("Grid did not load. Refreshing page...");
-    await this.page.reload({ waitUntil: "domcontentloaded" });
+  async waitUntilLoaded() {
+    try {
+      await expect(this.products.first()).toBeVisible({
+        timeout: 20000,
+      });
+    } catch (_error) {
+      console.warn("Grid did not load. Refreshing page...");
+      await this.page.reload({ waitUntil: "domcontentloaded" });
 
-    await expect(this.products.first()).toBeVisible({
-      timeout: 30000
-    });
+      await expect(this.products.first()).toBeVisible({
+        timeout: 30000,
+      });
+    }
   }
-}
 
   async openFirstProduct() {
     const firstProduct = this.products.first();

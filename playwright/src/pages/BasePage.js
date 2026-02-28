@@ -3,8 +3,7 @@ export class BasePage {
     this.page = page;
   }
 
-   async open(path) {
+  async open(path) {
     await this.page.goto(path);
   }
 }
-

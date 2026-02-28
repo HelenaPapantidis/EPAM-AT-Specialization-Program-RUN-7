@@ -76,7 +76,7 @@ import { HomePage } from "../pages/HomePage";
 
 Create `.env` file:
 
-```
+````
 
 ## 📋 Available Commands
 
@@ -89,7 +89,7 @@ npm run test:chrome         # Chrome only
 npm run test:firefox        # Firefox only
 npm run test:safari         # Safari/WebKit
 npm run report              # Open HTML report
-```
+````
 
 ## 🎯 Best Practices
 
@@ -137,7 +137,6 @@ npm run report
 - `@playwright/test` - ^1.57.0
 - `dotenv` - ^16.0.0
 
-
 ### Modern Wait Strategies
 
 ```javascript
@@ -164,5 +163,3 @@ Keep it clean:
 - [Best Practices](https://playwright.dev/docs/best-practices)
 
 ---
-
-

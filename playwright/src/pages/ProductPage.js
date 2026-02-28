@@ -1,7 +1,6 @@
-import { BasePage } from './BasePage.js';
+import { BasePage } from "./BasePage.js";
 
 export class ProductPage extends BasePage {
-  
   constructor(page) {
     super(page);
   }
@@ -16,12 +15,11 @@ export class ProductPage extends BasePage {
     });
   }
 
-   getProductHeading(productName) {
-  return this.page.getByRole("heading", {
-    name: new RegExp(productName, "i")
-  });
-}
-
+  getProductHeading(productName) {
+    return this.page.getByRole("heading", {
+      name: new RegExp(productName, "i"),
+    });
+  }
 
   getProductInCart(productName) {
     return this.page.locator(`text=${productName}`).first();

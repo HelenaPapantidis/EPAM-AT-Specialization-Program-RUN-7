@@ -1,7 +1,6 @@
-import BasePage from './BasePage.js';
+import BasePage from "./BasePage.js";
 
 class RegistrationPage extends BasePage {
-  
   get firstNameInput() {
     return $("[data-test='first-name']");
   }
@@ -66,12 +65,20 @@ class RegistrationPage extends BasePage {
 
   async submitRegistration() {
     await this.registerButton.scrollIntoView();
+    await this.registerButton.waitForClickable({ timeout: 20000 });
     await this.registerButton.click();
   }
 
   async register(userData) {
     await this.fillRegistrationForm(userData);
     await this.submitRegistration();
+  }
+
+  async waitForLoginRedirect(timeout = 30000) {
+    await browser.waitUntil(
+      async () => (await browser.getUrl()).includes('/auth/login'),
+      { timeout, interval: 500, timeoutMsg: 'Registration did not redirect to /auth/login' }
+    );
   }
 }
 

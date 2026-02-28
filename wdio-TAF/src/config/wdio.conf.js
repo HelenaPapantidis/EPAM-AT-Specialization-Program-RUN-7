@@ -1,14 +1,7 @@
 import dotenv from 'dotenv';
-import path from 'path';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const projectRoot = path.resolve(__dirname, '../../..');
-const wdioTafRoot = path.resolve(__dirname, '../..');
-
-dotenv.config({ path: path.join(projectRoot, '.env') });
+import path from 'path';
+dotenv.config();
 
 export const config = {
     //
@@ -22,7 +15,7 @@ export const config = {
     // Specify Test Files
     // ==================
     specs: [
-         path.join(__dirname, "../tests/**/*.test.js")
+            '../tests/**/*.test.js'
     ],
     
     // Patterns to exclude
@@ -30,8 +23,8 @@ export const config = {
         // 'path/to/excluded/files'
     ],
 
-    // Retry failed spec files up to 1 time
-    specFileRetries: 1,
+    // Run spec files once (retries can hide flakiness and look like parallel runs)
+    specFileRetries: 0,
     specFileRetriesDelay: 0,
     specFileRetriesDeferred: false,
     
@@ -39,12 +32,15 @@ export const config = {
     // ============
     // Capabilities
     // ============
+    // Run tests sequentially to avoid rate limiting issues
     maxInstances: 1,
     
     capabilities: [{
+        maxInstances: 1,
         browserName: 'chrome',
         'goog:chromeOptions': {
             args: [
+                ...(process.env.HEADLESS === 'true' ? ['--headless=new'] : []),
                 '--disable-gpu',
                 '--disable-dev-shm-usage',
                 '--disable-background-networking',
@@ -60,29 +56,43 @@ export const config = {
         }
     }],
 
-    //
-    // ===================
-    // Test Configurations
-    // ===================
-    logLevel: 'error',
-    
-    bail: 0,
-    
-    baseUrl: process.env.BASE_URL || "https://practicesoftwaretesting.com",
-    
-    waitforTimeout: 30000,
-    
-    connectionRetryTimeout: 120000,
-    
-    connectionRetryCount: 2,
-    
-    framework: 'mocha',
-    
-    reporters: ['spec'],
+  //
+  // ===================
+  // Test Configurations
+  // ===================
+  logLevel: "error",
+
+  bail: 0,
+
+  baseUrl: process.env.BASE_URL || "https://practicesoftwaretesting.com",
+
+  waitforTimeout: 30000,
+
+  connectionRetryTimeout: 120000,
+
+  connectionRetryCount: 2,
+
+  framework: "mocha",
+
+  reporters: [
+    "spec",
+    [
+      "@rpii/wdio-html-reporter",
+      {
+        debug: false,
+        outputDir: path.join(projectRoot, "wdio-html-report"),
+        filename: "report.html",
+        reportTitle: "WDIO Test Report",
+        showInBrowser: false,
+        collapseTests: false,
+        useOnAfterCommandForScreenshot: false,
+      },
+    ],
+  ],
 
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000
+        timeout: 90000
     },
 
     //
@@ -94,17 +104,17 @@ export const config = {
      */
     afterTest: async function (test, context, { error, passed }) {
         if (!passed) {
-            const screenshotDir = path.resolve(wdioTafRoot, 'screenshots');
+            const screenshotDir = path.resolve('wdio-TAF', 'screenshots');
             if (!fs.existsSync(screenshotDir)) {
                 fs.mkdirSync(screenshotDir, { recursive: true });
             }
 
-            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-            const testName = test.title.replace(/\s+/g, '_');
-            const filePath = path.join(screenshotDir, `${testName}_${timestamp}.png`);
+      const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+      const testName = test.title.replace(/\s+/g, "_");
+      const filePath = path.join(screenshotDir, `${testName}_${timestamp}.png`);
 
-            await browser.saveScreenshot(filePath);
-            console.log(`\n📸 Screenshot saved: ${filePath}`);
-        }
-    },
-}
+      await browser.saveScreenshot(filePath);
+      console.log(`\n📸 Screenshot saved: ${filePath}`);
+    }
+  },
+};

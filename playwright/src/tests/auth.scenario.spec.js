@@ -34,9 +34,7 @@ test.describe("Authentication Scenarios", () => {
     });
 
     await test.step("Verify page title contains 'My account'", async () => {
-      await expect(page.locator('[data-test="page-title"]')).toContainText(
-        "My account",
-      );
+      await expect(page.locator('[data-test="page-title"]')).toContainText("My account");
     });
   });
 });

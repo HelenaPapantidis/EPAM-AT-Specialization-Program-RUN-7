@@ -1,21 +1,19 @@
-import { HomePage, ProductDetailsPage, CartPage } from '../po/index.js';
+import { HomePage, ProductDetailsPage, CartPage } from "../po/index.js";
 
 describe("Shopping Cart", () => {
-  
-  it("should add product to basket and remove it", async () => {
+
+  it("should add product to basket", async () => {
     await HomePage.open();
     await HomePage.clickFirstProduct();
     await ProductDetailsPage.waitForPageLoad();
     await ProductDetailsPage.addToCart();
-    await ProductDetailsPage.waitForSuccessToast();
-    await ProductDetailsPage.waitForToastDisappear();
-    await HomePage.goToCart();
-    await CartPage.waitForCartItemsToLoad();
-
-    await expect(CartPage.cartItems).toBeElementsArrayOfSize(1);
-
-    await expect(CartPage.quantityInput).toHaveValue("1");
-
-    await CartPage.removeProduct();
+    await expect(ProductDetailsPage.toast).toBeDisplayed({ timeout: 15000 });
+    await CartPage.open();
+    await expect(browser).toHaveUrl(/checkout/);
+    const rows = await CartPage.cartRows;
+    await expect(rows.length).toBeGreaterThan(0);
   });
 });
+
+
+

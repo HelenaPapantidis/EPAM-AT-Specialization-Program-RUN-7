@@ -1,10 +1,10 @@
 class ProductDetailsPage {
   get productName() {
-    return cy.get('h1');
+    return cy.get('[data-test="product-name"]');
   }
 
   get addToCartButton() {
-    return cy.get('#btn-add-to-cart');
+    return cy.get("#btn-add-to-cart");
   }
 
   get descriptionBox() {

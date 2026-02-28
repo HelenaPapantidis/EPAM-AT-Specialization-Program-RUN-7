@@ -1,3 +1,4 @@
+
 # Node
 node_modules/
 package-lock.json
@@ -13,22 +14,29 @@ logs/
 *.log
 
 # Playwright
-playwright-report/
 playwright/playwright-report/
-test-results/
 playwright/test-results/
 trace.zip
 
 # Cypress
 cypress/videos/
 cypress/screenshots/
+cypress/mochawesome-report/
 
 # WDIO
 allure-results/
 allure-report/
-screenshots/
 wdio-TAF/screenshots/
 wdio-TAF/test-results/
-wdio-cucumber/allure-results/
-wdio-cucumber/allure-report/
+wdio-TAF/wdio-html-report/
+wdio-chai-basic/screenshots/
+wdio-chai-basic/wdio-html-report/
 wdio-logs/
+
+# Legacy report folders (root level - should not exist)
+playwright-report/
+test-results/
+mochawesome-report/
+wdio-html-report/
+wdio-html-reportscreenshots/
+screenshots/
