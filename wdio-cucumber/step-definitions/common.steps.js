@@ -1,7 +1,5 @@
 import { Given, Then } from '@wdio/cucumber-framework';
-import assert from 'node:assert/strict';
-
-import { HomePage, LoginPage } from '../../pageobjects/index.js';
+import { HomePage, LoginPage, ProfilePage} from '../pageobjects/index.js';
 
 Given('the user is on the homepage', async () => {
   await HomePage.open();
@@ -26,8 +24,9 @@ Then('the page should display {string}', async (expectedText) => {
   const title = await $('[data-test="page-title"], h1');
   await title.waitForDisplayed({ timeout: 15000 });
   const text = await title.getText();
-  assert.ok(
-    text.toLowerCase().includes(expectedText.toLowerCase()),
-    `Expected "${expectedText}" in title, got "${text}"`
-  );
+  await expect(text.toLowerCase()).toContain(expectedText.toLowerCase());
+});
+
+Then('a success message should be displayed', async () => {
+  await expect(ProfilePage.successAlert).toBeDisplayed();
 });

@@ -1,7 +1,5 @@
 import { When, Then } from '@wdio/cucumber-framework';
-import assert from 'node:assert/strict';
-
-import { HomePage, ProductDetailsPage } from '../../pageobjects/index.js';
+import { HomePage, ProductDetailsPage } from '../pageobjects/index.js';
 
 When('the user clicks on a product from the list', async () => {
   await HomePage.clickFirstProduct();
@@ -16,13 +14,12 @@ Then('the product details page should be displayed', async () => {
 });
 
 Then('the URL should contain {string}', async (part) => {
-  const url = await browser.getUrl();
-  assert.ok(url.includes(part), `Expected "${part}" in URL, got "${url}"`);
+  await expect(browser).toHaveUrl(expect.stringContaining(part));
 });
 
 Then('the product name should be visible', async () => {
   const name = await ProductDetailsPage.getProductName();
-  assert.ok(name.trim().length > 0, 'Product name should not be empty');
+  expect(name.trim().length).toBeGreaterThan(0);
 });
 
 Then('the {string} button should be clickable', async (buttonText) => {

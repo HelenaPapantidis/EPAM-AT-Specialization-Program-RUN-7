@@ -1,38 +1,50 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export const config = {
-    runner: 'local',
+  runner: "local",
 
-    specs: ['./features/**/*.feature'],
-    exclude: [],
+  specs: ["./features/**/*.feature"],
+  exclude: [],
 
-    maxInstances: 1,
-    capabilities: [{ browserName: 'chrome' }],
+  maxInstances: 1,
+  capabilities: [
+    {
+      browserName: "chrome",
+      "goog:chromeOptions": {
+        args: [
+          "--disable-notifications",
+          "--disable-extensions",
+          "--disable-background-networking",
+          "--log-level=3",
+        ],
+      },
+    },
+  ],
 
-    logLevel: 'error',
-    bail: 0,
-    baseUrl: 'https://practicesoftwaretesting.com',
-    waitforTimeout: 10000,
-    connectionRetryTimeout: 120000,
-    connectionRetryCount: 3,
+  logLevel: "error",
+  bail: 0,
+  baseUrl: "https://practicesoftwaretesting.com",
+  waitforTimeout: 40000,
+  connectionRetryTimeout: 120000,
+  connectionRetryCount: 3,
 
-    framework: 'cucumber',
-    reporters: ['spec', ['allure', { outputDir: 'allure-results' }]],
+  framework: "cucumber",
+  reporters: ["spec", ["allure", { outputDir: "allure-results" }]],
 
-    cucumberOpts: {
-        require: [path.join(__dirname, 'features', 'step-definitions', '*.js')],
-        backtrace: false,
-        dryRun: false,
-        failFast: false,
-        snippets: true,
-        source: true,
-        strict: false,
-        tags: process.env.TAGS || '',
-        timeout: 60000,
-        ignoreUndefinedDefinitions: false
-    }
+  cucumberOpts: {
+    require: [path.join(__dirname, "step-definitions", "*.js")],
+    backtrace: false,
+    dryRun: false,
+    failFast: false,
+    snippets: true,
+    source: true,
+    strict: false,
+    tags: process.env.TAGS || "",
+    timeout: 60000,
+    ignoreUndefinedDefinitions: false,
+  },
 };

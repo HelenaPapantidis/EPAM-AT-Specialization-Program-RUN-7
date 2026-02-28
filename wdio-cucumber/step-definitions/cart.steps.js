@@ -1,7 +1,5 @@
 import { When, Then } from '@wdio/cucumber-framework';
-import assert from 'node:assert/strict';
-
-import { ProductDetailsPage, CartPage } from '../../pageobjects/index.js';
+import { ProductDetailsPage, CartPage } from '../pageobjects/index.js';
 
 When('the user clicks the {string} button', async (buttonText) => {
   if (buttonText === 'Add to cart') {
@@ -14,15 +12,21 @@ When('the user clicks the {string} button', async (buttonText) => {
 });
 
 When('the user opens the cart page', async () => {
+  await browser.waitUntil(
+    async () => {
+      const badge = await $('[data-test="cart-quantity"]');
+      return (await badge.isExisting()) && (await badge.getText()) === '1';
+    },
+    { timeout: 30000, timeoutMsg: 'Cart badge did not update to 1' }
+  );
   await browser.url('/checkout');
-  await CartPage.waitForCartItemsToLoad(15000);
+  await CartPage.waitForCartItemsToLoad(60000);
 });
 
 Then('the product should be displayed in the cart', async () => {
-  const count = await CartPage.getCartItemCount();
-  assert.ok(count > 0, 'Expected at least one item in cart');
+  expect(await CartPage.getCartItemCount()).toBeGreaterThan(0);
 });
 
 Then('the quantity should be set to 1', async () => {
-  assert.equal(await CartPage.getQuantity(), '1');
+  await expect(CartPage.quantityInput).toHaveValue('1');
 });

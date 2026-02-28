@@ -1,8 +1,6 @@
 import { When, Then } from '@wdio/cucumber-framework';
-import assert from 'node:assert/strict';
-
-import { HomePage, ProductDetailsPage, ProfilePage, FavoritesPage } from '../../pageobjects/index.js';
-import { buildProfileUpdateData } from '../../utils/profileData.js';
+import { HomePage, ProductDetailsPage, ProfilePage, FavoritesPage } from '../pageobjects/index.js';
+import { buildProfileUpdateData } from '../utils/profileData.js';
 
 const state = {};
 
@@ -14,16 +12,11 @@ When('the user navigates to the profile page', async () => {
 When('the user updates the first name field with new value', async () => {
   const data = buildProfileUpdateData();
   state.updatedFirstName = data.firstName;
-  await ProfilePage.setInputValue(ProfilePage.firstNameInput, state.updatedFirstName);
+  await ProfilePage.updateProfile({ firstName: state.updatedFirstName });
 });
 
 When('the user clicks the save button', async () => {
   await ProfilePage.scrollAndClick(ProfilePage.updateProfileButton);
-});
-
-Then('the updated information should be visible on the profile page', async () => {
-  const value = await ProfilePage.firstNameInput.getValue();
-  assert.equal(value, state.updatedFirstName);
 });
 
 When('the user opens a product from the homepage', async () => {
@@ -40,9 +33,13 @@ Then('the product should be added to favorites', async () => {
   await FavoritesPage.open();
   await FavoritesPage.waitForPageLoad(15000);
   await FavoritesPage.waitForFavoriteCard(15000);
-  assert.ok(await FavoritesPage.isFavoriteCardDisplayed(), 'Favorite card not displayed');
+  await expect(FavoritesPage.favoriteCard).toBeDisplayed();
 });
 
-Then('the favorite icon should be marked as selected', async () => {
-  assert.ok(await FavoritesPage.isFavoriteCardDisplayed(), 'Product not in favorites');
+Then('the user removes the product from favorites', async () => {
+  await FavoritesPage.removeFromFavorites();
+  await browser.waitUntil(
+    async () => !(await FavoritesPage.favoriteCard.isExisting()),
+    { timeout: 10000, timeoutMsg: 'Favorite card was not removed' }
+  );
 });

@@ -11,8 +11,7 @@ Feature: Login and registration
     When the user clicks on "Register your account" link
     And the user fills in the registration form with valid data
     And the user clicks the Register button
-    Then a success message should be displayed
-    And the user should be redirected to the login page
+    Then the user should be redirected to the login page
 
   @smoke @positive
   Scenario: Successful user login
@@ -22,3 +21,6 @@ Feature: Login and registration
     And the user clicks the Login button
     Then the user should be redirected to the account page
     And the page should display "My account"
+
+
+

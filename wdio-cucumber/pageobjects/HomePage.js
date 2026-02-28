@@ -1,7 +1,6 @@
-import BasePage from './BasePage.js';
+import BasePage from "./BasePage.js";
 
 class HomePage extends BasePage {
-
   get productCards() {
     return $$("a.card");
   }
@@ -13,20 +12,20 @@ class HomePage extends BasePage {
   get searchButton() {
     return $("[data-test='search-submit']");
   }
-  
+
   get searchCaption() {
     return $("h3[data-test='search-caption']");
   }
 
   async open() {
-    await super.open('/');
+    await super.open("/");
   }
 
   async waitForProductsToLoad(timeout = 30000) {
-    await browser.waitUntil(
-      async () => (await this.productCards).length > 0,
-      { timeout, timeoutMsg: 'Products did not load within timeout' }
-    );
+    await browser.waitUntil(async () => (await this.productCards).length > 0, {
+      timeout,
+      timeoutMsg: "Products did not load within timeout",
+    });
   }
 
   async clickFirstProduct() {
@@ -46,8 +45,18 @@ class HomePage extends BasePage {
     return (await this.productCards).length;
   }
 
-  async goToCategory(slug) {
-    await super.open(`/category/${slug}`);
+  get categoriesMenu() {
+    return $('[data-test="nav-categories"]');
+  }
+  get categoryPageTitle() {
+    return $('[data-test="page-title"], h1');
+  }
+
+  async clickCategory(categoryName) {
+    await this.categoriesMenu.click();
+    const categoryLink = await $(`a=${categoryName}`);
+    await categoryLink.waitForDisplayed({ timeout: 10000 });
+    await categoryLink.click();
   }
 }
 

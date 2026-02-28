@@ -1,10 +1,8 @@
 import { Given, When, Then } from '@wdio/cucumber-framework';
-import assert from 'node:assert/strict';
+import { LoginPage, RegistrationPage } from '../pageobjects/index.js';
+import { buildValidRegistrationData } from '../utils/registrationData.js';
 
-import { LoginPage, RegistrationPage } from '../../pageobjects/index.js';
-import { buildValidRegistrationData } from '../../utils/registrationData.js';
-
-Given('a test account exists with email {string} and password {string}', async (email, password) => {
+Given('a test account exists with email {string} and password {string}', async (_email, _password) => {
   // account already exists in the demo app
 });
 
@@ -38,27 +36,10 @@ When('the user clicks the Login button', async () => {
   await LoginPage.clickElement(LoginPage.loginButton);
 });
 
-Then('a success message should be displayed', async () => {
-  await browser.waitUntil(
-    async () => {
-      if ((await browser.getUrl()).includes('/auth/login')) return true;
-      const el = await $('.alert-success, .ngx-toastr, .toast, .alert');
-      return (await el.isExisting()) && (await el.isDisplayed());
-    },
-    { timeout: 15000, timeoutMsg: 'Success message (or redirect) did not appear' }
-  );
-});
-
 Then('the user should be redirected to the login page', async () => {
-  await browser.waitUntil(
-    async () => (await browser.getUrl()).includes('/auth/login'),
-    { timeout: 15000, timeoutMsg: 'Expected redirect to login page' }
-  );
+  await expect(browser).toHaveUrl(expect.stringContaining('/auth/login'));
 });
 
 Then('the user should be redirected to the account page', async () => {
-  await browser.waitUntil(
-    async () => (await browser.getUrl()).includes('/account'),
-    { timeout: 15000, timeoutMsg: 'Expected redirect to account page' }
-  );
+  await expect(browser).toHaveUrl(expect.stringContaining('/account'));
 });
