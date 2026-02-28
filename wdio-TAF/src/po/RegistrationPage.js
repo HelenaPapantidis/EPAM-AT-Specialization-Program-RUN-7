@@ -75,11 +75,10 @@ class RegistrationPage extends BasePage {
   }
 
   async waitForLoginRedirect(timeout = 30000) {
-    await browser.waitUntil(async () => (await browser.getUrl()).includes("/auth/login"), {
-      timeout,
-      interval: 500,
-      timeoutMsg: "Registration did not redirect to /auth/login",
-    });
+    await browser.waitUntil(
+      async () => (await browser.getUrl()).includes('/auth/login'),
+      { timeout, interval: 500, timeoutMsg: 'Registration did not redirect to /auth/login' }
+    );
   }
 }
 

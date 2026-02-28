@@ -1,6 +1,7 @@
 import BasePage from "./BasePage.js";
 
 class FavoritesPage extends BasePage {
+  
   get favoriteCards() {
     return $$("app-favorites .card");
   }
@@ -37,11 +38,10 @@ class FavoritesPage extends BasePage {
   }
 
   async waitForAnyFavorite(timeout = 60000) {
-    await browser.waitUntil(async () => (await this.favoriteCards).length > 0, {
-      timeout,
-      interval: 500,
-      timeoutMsg: "No favorites appeared",
-    });
+    await browser.waitUntil(
+      async () => (await this.favoriteCards).length > 0,
+      { timeout, interval: 500, timeoutMsg: 'No favorites appeared' }
+    );
   }
 
   async removeFirstFavorite(timeout = 20000) {
@@ -53,11 +53,10 @@ class FavoritesPage extends BasePage {
     await deleteBtn.waitForClickable({ timeout: 10000 });
     await deleteBtn.click();
 
-    await browser.waitUntil(async () => (await this.favoriteCards).length < cards.length, {
-      timeout,
-      interval: 500,
-      timeoutMsg: "Favorite was not removed",
-    });
+    await browser.waitUntil(
+      async () => (await this.favoriteCards).length < cards.length,
+      { timeout, interval: 500, timeoutMsg: 'Favorite was not removed' }
+    );
   }
 }
 

@@ -1,5 +1,5 @@
 export const searchData = {
-  validProduct: "hammer",
+  validProduct: "hammer"
 };
 
 export const categories = {

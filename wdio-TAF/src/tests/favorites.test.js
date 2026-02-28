@@ -1,8 +1,9 @@
-import { HomePage, ProductDetailsPage, FavoritesPage } from "../po/index.js";
-import { loginToAccount } from "../helpers/index.js";
-import { validUser } from "../data/index.js";
+import { HomePage, ProductDetailsPage, FavoritesPage } from '../po/index.js';
+import { loginToAccount } from '../helpers/index.js';
+import { validUser } from '../data/index.js';
 
 describe("Favorites Scenarios", () => {
+
   it("should add product to favorites", async () => {
     await loginToAccount(validUser.email, validUser.password);
 

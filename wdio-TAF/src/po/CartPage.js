@@ -6,7 +6,7 @@ class CartPage extends BasePage {
   }
 
   async open() {
-    await super.open("/checkout");
+    await super.open('/checkout');
   }
 }
 
