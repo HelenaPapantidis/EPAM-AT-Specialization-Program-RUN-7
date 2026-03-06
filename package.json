@@ -21,8 +21,17 @@
     "test:playwright:headed": "playwright test --config=playwright/playwright.config.js --headed",
     "report:playwright": "playwright show-report",
     "test:wdio:basic": "wdio run ./wdio-chai-basic/wdio.conf.js",
+    "test:wdio:cucumber": "wdio run ./wdio-cucumber/wdio.conf.js",
+    "test:wdio:cucumber:auth": "wdio run ./wdio-cucumber/wdio.conf.js --spec ./wdio-cucumber/features/auth.feature",
+    "test:wdio:cucumber:browse": "wdio run ./wdio-cucumber/wdio.conf.js --spec ./wdio-cucumber/features/browse.feature",
+    "test:wdio:cucumber:cart": "wdio run ./wdio-cucumber/wdio.conf.js --spec ./wdio-cucumber/features/cart.feature",
+    "test:wdio:cucumber:product": "wdio run ./wdio-cucumber/wdio.conf.js --spec ./wdio-cucumber/features/product.feature",
+    "test:wdio:cucumber:profile": "wdio run ./wdio-cucumber/wdio.conf.js --spec ./wdio-cucumber/features/profile.feature",
+    "test:wdio:cucumber:smoke": "wdio run ./wdio-cucumber/wdio.conf.js --cucumberOpts.tagExpression=\"@smoke and not @flaky\"",
+    "test:wdio:cucumber:regression": "wdio run ./wdio-cucumber/wdio.conf.js --cucumberOpts.tagExpression=\"@regression and not @flaky\"",
+    "test:wdio:cucumber:flaky": "wdio run ./wdio-cucumber/wdio.conf.js --cucumberOpts.tagExpression=@flaky",
     "test:wdio:taf": "wdio run ./wdio-TAF/src/config/wdio.conf.js",
-    "test:all": "npm run test:api && npm run test:cypress && npm run test:playwright && npm run test:wdio:basic && npm run test:wdio:taf"
+    "test:all": "npm run test:api && npm run test:cypress && npm run test:playwright && npm run test:wdio:basic && npm run test:wdio:taf && npm run test:wdio:cucumber"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

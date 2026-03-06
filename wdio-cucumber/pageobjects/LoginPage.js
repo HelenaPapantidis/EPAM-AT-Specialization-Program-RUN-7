@@ -1,7 +1,6 @@
-import BasePage from './BasePage.js';
+import BasePage from "./BasePage.js";
 
 class LoginPage extends BasePage {
-  
   get emailInput() {
     return $("[data-test='email']");
   }
@@ -19,17 +18,17 @@ class LoginPage extends BasePage {
   }
 
   async open() {
-    await super.open('/auth/login');
+    await super.open("/auth/login");
   }
 
   async login(email, password) {
-    await this.setInputValue(this.emailInput, email);
-    await this.setInputValue(this.passwordInput, password);
-    await this.clickElement(this.loginButton);
+    await this.emailInput.setValue(email);
+    await this.passwordInput.setValue(password);
+    await this.loginButton.click();
   }
 
   async goToRegister() {
-    await this.clickElement(this.registerLink);
+    await this.registerLink.click();
   }
 }
 

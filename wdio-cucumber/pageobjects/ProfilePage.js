@@ -1,45 +1,57 @@
-import BasePage from './BasePage.js';
+import BasePage from "./BasePage.js";
 
 class ProfilePage extends BasePage {
-
-  get firstNameInput() { return $("[data-test='first-name']"); }
-  get lastNameInput() { return $("[data-test='last-name']"); }
-  get phoneInput() { return $("[data-test='phone']"); }
-  get streetInput() { return $("[data-test='street']"); }
-  get postalCodeInput() { return $("[data-test='postal_code']"); }
-  get cityInput() { return $("[data-test='city']"); }
-  get updateProfileButton() { return $("[data-test='update-profile-submit']"); }
-  get successAlert() { return $(".alert.alert-success"); }
+  get phoneInput() {
+    return $("[data-test='phone']");
+  }
+  get streetInput() {
+    return $("[data-test='street']");
+  }
+  get postalCodeInput() {
+    return $("[data-test='postal_code']");
+  }
+  get cityInput() {
+    return $("[data-test='city']");
+  }
+  get stateInput() {
+    return $("[data-test='state']");
+  }
+  get updateProfileButton() {
+    return $("[data-test='update-profile-submit']");
+  }
 
   async open() {
-    await super.open('/account/profile');
+    await super.open("/account/profile");
   }
 
   async waitForPageLoad(timeout = 30000) {
-    await this.waitForElement(this.firstNameInput, timeout);
-  }
-
-  get fieldMap() {
-  return {
-    firstName: this.firstNameInput,
-    lastName: this.lastNameInput,
-    phone: this.phoneInput,
-    street: this.streetInput,
-    postalCode: this.postalCodeInput,
-    city: this.cityInput
-  };
-}
-
-async updateProfile(profileData) {
-  await this.waitForPageLoad();
-  for (const [key, element] of Object.entries(this.fieldMap)) {
-    if (profileData[key] !== undefined) {
-      await this.setInputValue(element, profileData[key]);
+    try {
+      await this.phoneInput.waitForDisplayed({ timeout });
+    } catch {
+      await this.open();
+      await this.phoneInput.waitForDisplayed({ timeout });
     }
   }
-  await this.scrollAndClick(this.updateProfileButton);
-}
 
+  async updateFields(data) {
+    await this.waitForPageLoad();
+    await this.phoneInput.clearValue();
+    await this.phoneInput.setValue(data.phone);
+    await this.streetInput.clearValue();
+    await this.streetInput.setValue(data.street);
+    await this.postalCodeInput.clearValue();
+    await this.postalCodeInput.setValue(data.postalCode);
+    await this.cityInput.clearValue();
+    await this.cityInput.setValue(data.city);
+    await this.stateInput.clearValue();
+    await this.stateInput.setValue(data.state);
+  }
+
+  async submitProfile() {
+    await this.updateProfileButton.scrollIntoView();
+    await this.updateProfileButton.waitForClickable({ timeout: 30000 });
+    await this.updateProfileButton.click();
+  }
 }
 
 export default new ProfilePage();

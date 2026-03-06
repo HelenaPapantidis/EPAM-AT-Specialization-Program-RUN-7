@@ -1,6 +1,7 @@
 import BasePage from "./BasePage.js";
 
 class HomePage extends BasePage {
+  // Selectors
   get productCards() {
     return $$("a.card");
   }
@@ -13,50 +14,76 @@ class HomePage extends BasePage {
     return $("[data-test='search-submit']");
   }
 
-  get searchCaption() {
+  get searchPageTitle() {
     return $("h3[data-test='search-caption']");
-  }
-
-  async open() {
-    await super.open("/");
-  }
-
-  async waitForProductsToLoad(timeout = 30000) {
-    await browser.waitUntil(async () => (await this.productCards).length > 0, {
-      timeout,
-      timeoutMsg: "Products did not load within timeout",
-    });
-  }
-
-  async clickFirstProduct() {
-    await this.waitForProductsToLoad();
-    const first = (await this.productCards)[0];
-    await first.scrollIntoView();
-    await first.click();
-  }
-
-  async getProductCardTitle(card) {
-    const title = await card.$("[data-test='product-name']");
-    return await title.getText();
-  }
-
-  async getProductCount() {
-    await this.waitForProductsToLoad();
-    return (await this.productCards).length;
   }
 
   get categoriesMenu() {
     return $('[data-test="nav-categories"]');
   }
+
   get categoryPageTitle() {
     return $('[data-test="page-title"], h1');
   }
 
-  async clickCategory(categoryName) {
-    await this.categoriesMenu.click();
-    const categoryLink = await $(`a=${categoryName}`);
-    await categoryLink.waitForDisplayed({ timeout: 10000 });
-    await categoryLink.click();
+  // Actions
+  async open() {
+    await super.open("/");
+  }
+
+  async waitForProductsToLoad(timeout = 30000) {
+    try {
+      await browser.waitUntil(async () => (await this.productCards).length > 0, {
+        timeout,
+        timeoutMsg: "Products did not load within timeout",
+      });
+    } catch {
+      await browser.refresh();
+      await browser.waitUntil(async () => (await this.productCards).length > 0, {
+        timeout,
+        timeoutMsg: "Products did not load within timeout after refresh",
+      });
+    }
+  }
+
+  async clickFirstProduct() {
+    await this.waitForProductsToLoad();
+    const first = (await this.productCards)[0];
+    const productNameElement = await first.$('[data-test="product-name"]');
+    await productNameElement.waitForDisplayed({ timeout: 30000 });
+    const name = await productNameElement.getText();
+    await first.scrollIntoView();
+
+    // Slow UI occasionally swallows the first click; retry once if URL does not change.
+    await first.click();
+    const navigatedOnFirstTry = await browser
+      .waitUntil(async () => (await browser.getUrl()).includes("/product/"), {
+        timeout: 15000,
+        interval: 500,
+      })
+      .then(() => true)
+      .catch(() => false);
+
+    if (!navigatedOnFirstTry) {
+      await first.click();
+      await browser.waitUntil(async () => (await browser.getUrl()).includes("/product/"), {
+        timeout: 30000,
+        interval: 500,
+        timeoutMsg: "Product detail page did not open after retry",
+      });
+    }
+
+    return name;
+  }
+
+  async getSearchPageTitleText() {
+    await this.searchPageTitle.waitForDisplayed();
+    return await this.searchPageTitle.getText();
+  }
+
+  async getCategoryPageTitleText() {
+    await this.categoryPageTitle.waitForDisplayed();
+    return await this.categoryPageTitle.getText();
   }
 }
 

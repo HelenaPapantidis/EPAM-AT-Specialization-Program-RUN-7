@@ -15,7 +15,6 @@ Feature: Login and registration
 
   @smoke @positive
   Scenario: Successful user login
-    Given a test account exists with email "customer@practicesoftwaretesting.com" and password "welcome01"
     When the user enters email "customer@practicesoftwaretesting.com"
     And the user enters password "welcome01"
     And the user clicks the Login button

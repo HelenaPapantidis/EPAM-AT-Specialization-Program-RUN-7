@@ -1,7 +1,6 @@
-import BasePage from './BasePage.js';
+import BasePage from "./BasePage.js";
 
 class ProductDetailsPage extends BasePage {
-
   get productName() {
     return $("[data-test='product-name']");
   }
@@ -14,20 +13,32 @@ class ProductDetailsPage extends BasePage {
     return $("[data-test='add-to-favorites']");
   }
 
-  async waitForPageLoad(timeout = 10000) {
+  async waitForPageLoad(timeout = 60000) {
     await this.waitForUrlContains("/product/", timeout, "Product detail page did not load");
+    try {
+      await this.productName.waitForDisplayed({ timeout });
+    } catch {
+      await browser.refresh();
+      await this.waitForUrlContains("/product/", timeout, "Product detail page did not reload");
+      await this.productName.waitForDisplayed({ timeout });
+    }
   }
 
   async getProductName() {
-    await this.waitForElement(this.productName, 30000);
-    return await this.getElementText(this.productName);
+    await this.waitForPageLoad();
+    return await this.productName.getText();
   }
 
   async addToCart() {
-    await this.clickElement(this.addToCartButton);
+    await this.waitForPageLoad();
+    await this.addToCartButton.waitForExist({ timeout: 60000 });
+    await this.scrollAndClick(this.addToCartButton);
+    await this.addToCartButton.waitForEnabled({ timeout: 30000 });
   }
 
   async addToFavorites() {
+    await this.waitForPageLoad();
+    await this.addToFavoritesButton.waitForExist({ timeout: 60000 });
     await this.scrollAndClick(this.addToFavoritesButton);
   }
 }
