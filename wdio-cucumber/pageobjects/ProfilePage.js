@@ -24,13 +24,11 @@ class ProfilePage extends BasePage {
     await super.open("/account/profile");
   }
 
-  async waitForPageLoad(timeout = 30000) {
-    try {
-      await this.phoneInput.waitForDisplayed({ timeout });
-    } catch {
-      await this.open();
-      await this.phoneInput.waitForDisplayed({ timeout });
-    }
+  async waitForPageLoad() {
+    await this.pollWithRetry(
+      async () => await this.phoneInput.isDisplayed().catch(() => false),
+      "Profile page did not load"
+    );
   }
 
   async updateFields(data) {

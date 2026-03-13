@@ -17,4 +17,20 @@ export default class BasePage {
     await element.waitForClickable({ timeout: DEFAULT_TIMEOUT });
     await element.click();
   }
+
+  async pollWithRetry(conditionFn, timeoutMsg = "Condition not met") {
+    let refreshed = false;
+    await browser.waitUntil(
+      async () => {
+        const result = await conditionFn();
+        if (!result && !refreshed) {
+          await browser.refresh();
+          refreshed = true;
+          return false;
+        }
+        return result;
+      },
+      { timeout: DEFAULT_TIMEOUT * 2, interval: 2000, timeoutMsg }
+    );
+  }
 }

@@ -30,6 +30,7 @@
     "test:wdio:cucumber:smoke": "wdio run ./wdio-cucumber/wdio.conf.js --cucumberOpts.tagExpression=\"@smoke and not @flaky\"",
     "test:wdio:cucumber:regression": "wdio run ./wdio-cucumber/wdio.conf.js --cucumberOpts.tagExpression=\"@regression and not @flaky\"",
     "test:wdio:cucumber:flaky": "wdio run ./wdio-cucumber/wdio.conf.js --cucumberOpts.tagExpression=@flaky",
+    "report:wdio:cucumber": "npx allure serve allure-results",
     "test:wdio:taf": "wdio run ./wdio-TAF/src/config/wdio.conf.js",
     "test:all": "npm run test:api && npm run test:cypress && npm run test:playwright && npm run test:wdio:basic && npm run test:wdio:taf && npm run test:wdio:cucumber"
   },

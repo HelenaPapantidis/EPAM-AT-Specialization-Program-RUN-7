@@ -41,7 +41,7 @@ Then("the page heading should show {string}", async (heading) => {
 });
 
 Then("products should be visible", async () => {
-  await HomePage.waitForProductsToLoad(30000);
+  await HomePage.waitForProductsToLoad();
   const count = (await HomePage.productCards).length;
   expect(count).toBeGreaterThan(0);
 });

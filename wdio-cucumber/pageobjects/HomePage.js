@@ -31,19 +31,11 @@ class HomePage extends BasePage {
     await super.open("/");
   }
 
-  async waitForProductsToLoad(timeout = 30000) {
-    try {
-      await browser.waitUntil(async () => (await this.productCards).length > 0, {
-        timeout,
-        timeoutMsg: "Products did not load within timeout",
-      });
-    } catch {
-      await browser.refresh();
-      await browser.waitUntil(async () => (await this.productCards).length > 0, {
-        timeout,
-        timeoutMsg: "Products did not load within timeout after refresh",
-      });
-    }
+  async waitForProductsToLoad() {
+    await this.pollWithRetry(
+      async () => (await this.productCards).length > 0,
+      "Products did not load"
+    );
   }
 
   async clickFirstProduct() {
@@ -52,27 +44,8 @@ class HomePage extends BasePage {
     const productNameElement = await first.$('[data-test="product-name"]');
     await productNameElement.waitForDisplayed({ timeout: 30000 });
     const name = await productNameElement.getText();
-    await first.scrollIntoView();
-
-    // Slow UI occasionally swallows the first click; retry once if URL does not change.
-    await first.click();
-    const navigatedOnFirstTry = await browser
-      .waitUntil(async () => (await browser.getUrl()).includes("/product/"), {
-        timeout: 15000,
-        interval: 500,
-      })
-      .then(() => true)
-      .catch(() => false);
-
-    if (!navigatedOnFirstTry) {
-      await first.click();
-      await browser.waitUntil(async () => (await browser.getUrl()).includes("/product/"), {
-        timeout: 30000,
-        interval: 500,
-        timeoutMsg: "Product detail page did not open after retry",
-      });
-    }
-
+    await this.scrollAndClick(first);
+    await this.waitForUrlContains("/product/", 30000, "Product detail page did not open");
     return name;
   }
 

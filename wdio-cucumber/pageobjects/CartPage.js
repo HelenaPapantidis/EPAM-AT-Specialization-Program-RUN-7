@@ -18,19 +18,11 @@ class CartPage extends BasePage {
     await this.waitForUrlContains("/checkout", timeout, "Failed to navigate to checkout");
   }
 
-  async waitForCartItemsToLoad(timeout = 30000) {
-    try {
-      await browser.waitUntil(async () => (await this.cartItems).length > 0, {
-        timeout,
-        timeoutMsg: "Cart items did not load",
-      });
-    } catch {
-      await browser.refresh();
-      await browser.waitUntil(async () => (await this.cartItems).length > 0, {
-        timeout,
-        timeoutMsg: "Cart items did not load after refresh",
-      });
-    }
+  async waitForCartItemsToLoad() {
+    await this.pollWithRetry(
+      async () => (await this.cartItems).length > 0,
+      "Cart items did not load"
+    );
   }
 
   async getCartItemCount() {

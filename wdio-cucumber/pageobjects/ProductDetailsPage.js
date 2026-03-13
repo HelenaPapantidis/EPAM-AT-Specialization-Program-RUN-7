@@ -15,13 +15,10 @@ class ProductDetailsPage extends BasePage {
 
   async waitForPageLoad(timeout = 60000) {
     await this.waitForUrlContains("/product/", timeout, "Product detail page did not load");
-    try {
-      await this.productName.waitForDisplayed({ timeout });
-    } catch {
-      await browser.refresh();
-      await this.waitForUrlContains("/product/", timeout, "Product detail page did not reload");
-      await this.productName.waitForDisplayed({ timeout });
-    }
+    await this.pollWithRetry(
+      async () => await this.productName.isDisplayed(),
+      "Product name not displayed"
+    );
   }
 
   async getProductName() {
